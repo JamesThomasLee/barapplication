@@ -1,6 +1,6 @@
 <?php
 
-class Repository
+class DBContext
 {
     private $db_server = 'Proj-mysql.uopnet.plymouth.ac.uk';
     private $dbUser = 'ISAD251_JLee';
