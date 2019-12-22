@@ -1,6 +1,6 @@
 <?php
 
-class menu_items
+class Menu_item
 {
     private $product_id;
     private $product_name;

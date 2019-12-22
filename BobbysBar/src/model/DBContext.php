@@ -25,4 +25,85 @@ class DBContext
             echo 'Connection failed: ', $err->getMessage();
         }
     }
+
+    public function Customer()
+    {
+        $sql = "";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $customers = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+             $customer = new Customer($row['customer_id'], $row['first_name'], $row['surname'], $row['email']);
+             $customers[] = $customer;
+            }
+        }
+        return $customers;
+    }
+
+    public function Menu_item()
+    {
+        $sql = "";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $menu_items = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $menu_item = new Menu_item($row['product_id'], $row['product_name'], $row['product_supplier'],
+                                            $row['category'], $row['percentage'], $row['cost']);
+                $menu_items[] = $menu_item;
+            }
+        }
+        return $menu_items;
+    }
+
+    public function Order()
+    {
+        $sql = "";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $orders = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $order = new Order($row['order_id'], $row['customer_id'], $row['table_number']);
+                $orders[] = $order;
+            }
+        }
+        return $orders;
+    }
+
+    public function Order_details()
+    {
+        $sql = "";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $order_details = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $order_detail = new Order_details($row['order_id'], $row['product_id'], $row['quantity']);
+                $order_details[] = $order_detail;
+            }
+        }
+        return $order_details;
+    }
 }

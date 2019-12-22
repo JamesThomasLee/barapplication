@@ -1,6 +1,6 @@
 <?php
 
-class order_details
+class Order_details
 {
     private $order_id;
     private $product_id;
