@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Menu_view_item.php';
+include_once 'MenuDrink_View.php';
 include_once 'orderView_Customer.php';
 include_once 'orderDetailView_Customer.php';
 
@@ -73,6 +73,27 @@ class DBContext
         return $menu_items;
     }
 
+    public function MenuDrink_View($view){
+        $sql = "SELECT * FROM " . $view;
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $menu_items = [];
+
+        // print_r($resultSet);
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $menu_item = new Menu_item($row['product_id'], $row['product_name'], $row['percentage'], $row['cost']);
+                $menu_items[] = $menu_item;
+            }
+        }
+        return $menu_items;
+    }
+
     public function Order()
     {
         $sql = "";
@@ -111,27 +132,6 @@ class DBContext
             }
         }
         return $order_details;
-    }
-
-    public function Menu_view(){
-        $sql = "SELECT * FROM `menu`";
-
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $menu_items = [];
-
-        // print_r($resultSet);
-
-        if($resultSet){
-            foreach($resultSet as $row)
-            {
-                $menu_item = new Menu_view_item($row['product_id'], $row['product_name'], $row['percentage'], $row['cost']);
-                $menu_items[] = $menu_item;
-            }
-        }
-        return $menu_items;
     }
 
     public function order_Retrieve($orderID){
