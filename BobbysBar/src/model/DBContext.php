@@ -73,8 +73,8 @@ class DBContext
         return $menu_items;
     }
 
-    public function MenuDrink_View($view){
-        $sql = "SELECT * FROM " . $view;
+    public function MenuDrink_View(){
+        $sql = "SELECT * FROM `drinks`";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -87,7 +87,8 @@ class DBContext
         if($resultSet){
             foreach($resultSet as $row)
             {
-                $menu_item = new Menu_item($row['product_id'], $row['product_name'], $row['percentage'], $row['cost']);
+                $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['category'],
+                                                $row['percentage'], $row['cost']);
                 $menu_items[] = $menu_item;
             }
         }
