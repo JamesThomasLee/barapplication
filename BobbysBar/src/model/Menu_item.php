@@ -16,7 +16,7 @@ class Menu_item
         $this->product_supplier = $product_supplier;
         $this->category = $category;
         $this->percentage = $percentage;
-        $cost->cost = $cost;
+        $this->cost = $cost;
     }
 
     public function getProductId()

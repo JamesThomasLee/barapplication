@@ -1,5 +1,9 @@
 <?php
 
+include_once 'Menu_view_item.php';
+include_once 'orderView_Customer.php';
+include_once 'orderDetailView_Customer.php';
+
 class DBContext
 {
     private $db_server = 'Proj-mysql.uopnet.plymouth.ac.uk';
@@ -48,13 +52,15 @@ class DBContext
 
     public function Menu_item()
     {
-        $sql = "";
+        $sql = "SELECT * FROM `menu_coursework`";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
         $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $menu_items = [];
+
+        // print_r($resultSet);
 
         if($resultSet){
             foreach($resultSet as $row)
@@ -106,4 +112,65 @@ class DBContext
         }
         return $order_details;
     }
+
+    public function Menu_view(){
+        $sql = "SELECT * FROM `menu`";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $menu_items = [];
+
+        // print_r($resultSet);
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $menu_item = new Menu_view_item($row['product_id'], $row['product_name'], $row['percentage'], $row['cost']);
+                $menu_items[] = $menu_item;
+            }
+        }
+        return $menu_items;
+    }
+
+    public function order_Retrieve($orderID){
+        $sql = "CALL OrderRetrieve(:orderID)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':orderID', $orderID, PDO::PARAM_STR);
+
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $customerOrder = "";
+
+        if($resultSet){
+            foreach($resultSet as $row){
+                $customerOrder = new orderView_Customer($row['order_id'], $row['table_number']);
+            }
+        }
+
+        return $customerOrder;
+    }
+
+    public function orderDetails_Retrieve($orderID){
+        $sql = "CALL OrderDetailsRetrieve(:orderID)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':orderID', $orderID, PDO::PARAM_STR);
+
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $customerOrderDetails = [];
+
+        if($resultSet){
+            foreach($resultSet as $row){
+                $customerOrderDetail = new orderDetailView_Customer($row['product_name'], $row['cost'], $row['quantity']);
+                $customerOrderDetails[] = $customerOrderDetail;
+            }
+        }
+
+        return $customerOrderDetails;
+    }
+
 }
