@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-$_SESSION["basket"] = array();
+if(!isset($_SESSION['basket'])){
+    $_SESSION["basket"] = array();
+}
+
 ?>
 
 <head>

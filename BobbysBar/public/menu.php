@@ -26,6 +26,9 @@ include_once('../src/model/MenuDrink_View.php');
             $percentage = $result->getPercentage();
             $cost = $result->getCost();
 
+            $item = new MenuDrink_View($product_id, $product_name, $category, $percentage, $cost);
+            $serialized = base64_encode(serialize($item));
+
             echo '<tr>';
             echo '<td>'. $product_name . '</td>';
             echo '<td>'. $category . '</td>';
@@ -33,7 +36,7 @@ include_once('../src/model/MenuDrink_View.php');
             echo '<td>'. "£" . $cost . '</td>';
             echo '<td>';
             echo '<form action="../src/controller/addToBasket.php" method="post">';
-            echo '<button type="submit" name="add_basket" value="' . $product_id . '">Add to Basket</button>';
+            echo '<button type="submit" name="add_basket" value="' . $serialized . '">Add to Basket</button>';
             echo '</form>';
             echo '</td>';
             echo '</tr>';
