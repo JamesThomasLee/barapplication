@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+$_SESSION["basket"] = array();
+?>
+
 <head>
 <title>Bar Ordering System</title>
 <meta charset="UTF-8">

@@ -31,11 +31,17 @@ include_once('../src/model/MenuDrink_View.php');
             echo '<td>'. $category . '</td>';
             echo '<td>'. $percentage . "%" . '</td>';
             echo '<td>'. "£" . $cost . '</td>';
-            echo '<td>' . '<>' . '</td>';
+            echo '<td>';
+            echo '<form action="../src/controller/addToBasket.php" method="post">';
+            echo '<button type="submit" name="add_basket" value="' . $product_id . '">Add to Basket</button>';
+            echo '</form>';
+            echo '</td>';
             echo '</tr>';
         }
         echo '</table>';
     }
+
+
 
 ?>
 
