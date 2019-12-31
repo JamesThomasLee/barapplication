@@ -7,13 +7,12 @@ include_once('../src/model/MenuDrink_View.php');
 ?>
 
 <body>
-<?php
-
+    <?php
     $db = new DBContext();
     $results = $db->MenuDrink_View();
 
     if($results){
-        $tableString = '<table border="1">';
+        $tableString = '<table border="1px solid black">';
         $tableString .= '<tr>';
         $tableString .= '<th> Drinks</th>';
         $tableString .= '</tr>';
@@ -35,7 +34,7 @@ include_once('../src/model/MenuDrink_View.php');
             echo '<td>'. $percentage . "%" . '</td>';
             echo '<td>'. "£" . $cost . '</td>';
             echo '<td>';
-            echo '<form action="../src/controller/addToBasket.php" method="post">';
+            echo '<form action="../src/controller/basketController.php" method="post">';
             echo '<button type="submit" name="add_basket" value="' . $serialized . '">Add to Basket</button>';
             echo '</form>';
             echo '</td>';
@@ -43,10 +42,7 @@ include_once('../src/model/MenuDrink_View.php');
         }
         echo '</table>';
     }
-
-
-
-?>
+    ?>
 
 </body>
 
