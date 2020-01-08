@@ -31,4 +31,6 @@ if(isset($_POST["clear_basket"])){
     header("Location: ../../public/basket.php");
 }
 
+
+
 ?>

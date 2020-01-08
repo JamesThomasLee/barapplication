@@ -44,13 +44,13 @@ foreach ($_SESSION['basket'] as $item){
     echo '</tr>';
 }
 echo '</table>';
-
-echo '<form action="../src/controller/basketController.php" method="post">';
-echo '<button type="submit" name="clear_basket">Clear Basket</button>';
-echo '</form>';
-
-
 ?>
+<form action="../src/controller/basketController.php" method="post">
+<button type="submit" name="clear_basket">Clear Basket</button>
+</form>
+
+<?php include_once('../src/view/placeOrder.php'); ?>
+
 
 </body>
 
