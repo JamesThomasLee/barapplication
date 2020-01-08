@@ -174,4 +174,17 @@ class DBContext
         return $customerOrderDetails;
     }
 
+    public function checkCustomer($email){
+        $sql = "CALL checkCustomer(:email)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultSet;
+    }
+
+
+
 }
