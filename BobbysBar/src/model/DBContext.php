@@ -181,10 +181,15 @@ class DBContext
 
         $statement->execute();
         $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        return $resultSet;
+        $result = 0;
+        foreach($resultSet as $customer => $id){
+            $result = $id;
+        }
+        return $result;
     }
 
+    public function insertCustomer($customer){
 
+    }
 
 }

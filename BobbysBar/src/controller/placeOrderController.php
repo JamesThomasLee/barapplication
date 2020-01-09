@@ -23,9 +23,12 @@ echo $order_time . '<br>';
 
     //if an array with 1 element is returned from the checkCustomer procedure, a customer has been found.
     if(count($result) == 1){
-        //found customer
+        echo $result;
     }else{
         //no customer with that email
+        //create customer (customer id set as 0 as it is not passed in. It is auto assigned)
+        $customer = new Customer(0, $first_name, $surname, $email);
+        $db->insertCustomer($customer);
     }
 
 }
