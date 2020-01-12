@@ -2,6 +2,7 @@
 <html>
 <?php
 include_once '../src/model/MenuDrink_View.php';
+include_once '../src/model/ItemInBasket.php';
 include 'header.php';
 ?>
 
@@ -34,7 +35,13 @@ foreach ($_SESSION['basket'] as $item){
     echo '<tr>';
     echo '<td>'. $product_name . '</td>';
     echo '<td>'. "£" . $cost . '</td>';
-    echo '<td>'. '<input type="text" name="quantity" value=' . $quantity . '>' . '</td>';
+    echo '<td>'. '<select name = "quantity" id="quantity">';
+         //drop down box for quantity (up to 9)
+        $i = 1;
+        for ($i = 1; $i < 10; $i++) {
+            echo '<option value=' . $i . '>' . $i . '</option>';
+        }
+    echo '</select>';
     echo '<td>';
     echo '<form action="../src/controller/basketController.php" method="post">';
     echo '<button type="submit" name="remove_basket" value="' . $product_id . '">Remove Item</button>';

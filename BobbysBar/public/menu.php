@@ -4,6 +4,7 @@
 include_once('header.php');
 include_once('../src/model/DBContext.php');
 include_once('../src/model/MenuDrink_View.php');
+include_once('../src/model/ItemInBasket.php');
 ?>
 
 <body>
@@ -24,8 +25,9 @@ include_once('../src/model/MenuDrink_View.php');
             $category = $result->getCategory();
             $percentage = $result->getPercentage();
             $cost = $result->getCost();
+            $quantity = 1;
 
-            $item = new MenuDrink_View($product_id, $product_name, $category, $percentage, $cost);
+            $item = new ItemInBasket($product_id, $product_name, $category, $percentage, $cost, $quantity);
             $serialized = base64_encode(serialize($item));
 
             echo '<tr>';

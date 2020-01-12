@@ -208,4 +208,19 @@ class DBContext
         $statement->execute();
     }
 
+    public function getLastOrderId(){
+        $sql = "SELECT * FROM `lastorderid`";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($resultSet as $row)
+        {
+            $result = $row['LAST_INSERT_ID()'];
+        }
+
+        return $result;
+    }
+
 }
