@@ -198,4 +198,14 @@ class DBContext
         $statement->execute();
     }
 
+    public function insertOrder($customer_id, $table_number, $order_time){
+        $sql = "CALL insertOrder(:customer_id, :table_number, :date_time)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':customer_id', $customer_id, PDO::PARAM_STR);
+        $statement->bindParam(':table_number', $table_number, PDO::PARAM_STR);
+        $statement->bindParam(':date_time', $order_time, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
 }
