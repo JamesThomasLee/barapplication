@@ -208,6 +208,16 @@ class DBContext
         $statement->execute();
     }
 
+    public function insertOrderDetail($order_id, $product_id, $quantity){
+        $sql = "CALL insertOrderDetail(:order_id, :product_id, :quantity)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':order_id', $order_id, PDO::PARAM_STR);
+        $statement->bindParam(':product_id', $product_id, PDO::PARAM_STR);
+        $statement->bindParam(':quantity', $quantity, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
     public function getLastOrderId(){
         $sql = "SELECT * FROM `lastorderid`";
 

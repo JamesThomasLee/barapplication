@@ -46,12 +46,12 @@ echo $order_time . '<br>';
         //getOrderId for orderdetails table
         $order_id = $db->getLastOrderId();
         //insert basket items to order details table
-        //foreach ($_SESSION['basket'] as $item){
-          //  $product_id = $item->getProductId();
+        foreach ($_SESSION['basket'] as $item){
+            $product_id = $item->getProductId();
             //quantity will be fixed later
-            //$quantity = 1;
-            //$db->insertOrderDetail($order_id, $product_id, $quantity);
-       // }
+            $quantity = 1;
+            $db->insertOrderDetail($order_id, $product_id, $quantity);
+        }
     }
 }
 
