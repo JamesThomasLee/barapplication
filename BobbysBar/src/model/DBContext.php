@@ -188,8 +188,14 @@ class DBContext
         return $result;
     }
 
-    public function insertCustomer($customer){
+    public function insertCustomer($first_name, $surname, $email){
+        $sql = "CALL insertCustomer(:first_name, :surname, :email)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+        $statement->bindParam(':surname', $surname, PDO::PARAM_STR);
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
 
+        $statement->execute();
     }
 
 }
