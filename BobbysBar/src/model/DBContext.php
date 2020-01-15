@@ -95,6 +95,26 @@ class DBContext
         return $menu_items;
     }
 
+    public function MenuSnack_View(){
+        $sql = "SELECT * FROM `menusnack_view`";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $menu_items = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['category'],
+                    $row['cost']);
+                $menu_items[] = $menu_item;
+            }
+        }
+        return $menu_items;
+    }
+
     public function Order()
     {
         $sql = "";
