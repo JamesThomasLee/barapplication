@@ -1,6 +1,7 @@
 <?php
 
 include_once 'MenuDrink_View.php';
+include_once 'MenuSnack_View.php';
 include_once 'orderView_Customer.php';
 include_once 'orderDetailView_Customer.php';
 
@@ -107,7 +108,7 @@ class DBContext
         if($resultSet){
             foreach($resultSet as $row)
             {
-                $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['category'],
+                $menu_item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['category'],
                     $row['cost']);
                 $menu_items[] = $menu_item;
             }

@@ -3,6 +3,7 @@
 <?php
 include_once '../src/model/MenuDrink_View.php';
 include_once '../src/model/ItemInBasket.php';
+include_once '../src/model/basketView.php';
 include 'header.php';
 ?>
 
@@ -24,12 +25,11 @@ foreach ($_SESSION['basket'] as $item){
     $product_id = $item->getProductId();
     $product_name = $item->getProductName();
     $category = $item->getCategory();
-    $percentage = $item->getPercentage();
     $cost = $item->getCost();
     $quantity = 1;
     $counter = $counter + 1;
 
-    $item = new MenuDrink_View($product_id, $product_name, $category, $percentage, $cost);
+    $item = new basketView($product_id, $product_name, $category, $cost);
     $serialized = base64_encode(serialize($item));
 
     echo '<tr>';
