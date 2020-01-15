@@ -11,7 +11,6 @@ include_once '../src/model/orderDetailView_Customer.php';
     <?php
     include_once('../src/view/orderLookUp.php');
 
-
     if(isset($_POST['orderLookUp'])){
         $orderID = $_POST['order_id'];
 
