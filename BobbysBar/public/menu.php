@@ -52,7 +52,7 @@ include_once('../src/model/basketView.php');
     if($snackResults){
         $tableString = '<table border="1px solid black">';
         $tableString .= '<tr>';
-        $tableString .= '<th> Drinks</th>';
+        $tableString .= '<th> Bar Snacks</th>';
         $tableString .= '</tr>';
         echo $tableString;
 

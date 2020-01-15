@@ -53,7 +53,10 @@ foreach ($_SESSION['basket'] as $item){
 echo '</table>';
 ?>
 <form action="../src/controller/basketController.php" method="post">
-<button type="submit" name="clear_basket">Clear Basket</button>
+    <button type="submit" name="addToBasket">Continue Shopping</button>
+</form>
+<form action="../src/controller/basketController.php" method="post">
+    <button type="submit" name="clear_basket">Clear Basket</button>
 </form>
 
 <?php include_once('../src/view/placeOrder.php'); ?>

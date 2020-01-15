@@ -30,5 +30,9 @@ if(isset($_POST["clear_basket"])){
     header("Location: ../../public/basket.php");
 }
 
+if(isset($_POST["addToBasket"])){
+    header("Location: ../../public/menu.php");
+}
+
 ?>
 
