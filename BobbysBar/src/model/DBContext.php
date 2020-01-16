@@ -254,4 +254,29 @@ class DBContext
         return $result;
     }
 
+    public function orderDelete($order_id){
+        //move order into archive order table (call procedure)
+        $sql = "CALL moveOrder(:order_id)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':order_id', $order_id, PDO::PARAM_STR);
+        $statement->execute();
+
+        //move orderdetails into archive order details table (call procedure)
+        $sql = "CALL moveOrderDetails(:order_id)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':order_id', $order_id, PDO::PARAM_STR);
+        $statement->execute();
+
+        //delete from orders table
+        //have a trigger to do this however it is causing an error
+        $sql = "DELETE FROM orders_coursework WHERE order_id = " . $order_id;
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+
+        //delete from orders table
+        //have a trigger to do this however it is causing an error
+        $sql = "DELETE FROM orderdetails_coursework WHERE order_id = " . $order_id;
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+    }
 }

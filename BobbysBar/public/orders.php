@@ -11,9 +11,15 @@ include_once '../src/model/orderDetailView_Customer.php';
     <?php
     include_once('../src/view/orderLookUp.php');
 
+
     if(isset($_POST['orderLookUp'])){
+        //collect orderID from text box
         $orderID = $_POST['order_id'];
 
+        //set session ID for cancel order function
+        $_SESSION["order_id"] = $orderID;
+
+        //call db function to collect order details
         $db = new DBContext();
         $results = $db->order_Retrieve($orderID);
 
@@ -47,6 +53,11 @@ include_once '../src/model/orderDetailView_Customer.php';
                 echo '</tr>';
             }
             echo '</table>';
+
+            //button for a user to cancel their order - calls deleteOrder controller
+            echo "<form action='../src/controller/deleteOrder.php' method='post'>";
+            echo "<button type='submit' name='deleteOrder'>Cancel Order</button>";
+            echo "</form>";
 
         }else{
             echo "Order not found.";
