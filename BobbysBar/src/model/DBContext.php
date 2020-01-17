@@ -187,7 +187,7 @@ class DBContext
 
         if($resultSet){
             foreach($resultSet as $row){
-                $customerOrderDetail = new orderDetailView_Customer($row['product_name'], $row['cost'], $row['quantity']);
+                $customerOrderDetail = new orderDetailView_Customer($row['product_id'], $row['product_name'], $row['cost'], $row['quantity']);
                 $customerOrderDetails[] = $customerOrderDetail;
             }
         }
@@ -267,16 +267,18 @@ class DBContext
         $statement->bindParam(':order_id', $order_id, PDO::PARAM_STR);
         $statement->execute();
 
+        //delete from orderdetails table
+        //have a trigger to do this however it is causing an error
+        $sql = "DELETE FROM orderdetails_coursework WHERE order_id = " . $order_id;
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+
         //delete from orders table
         //have a trigger to do this however it is causing an error
         $sql = "DELETE FROM orders_coursework WHERE order_id = " . $order_id;
         $statement = $this->connection->prepare($sql);
         $statement->execute();
 
-        //delete from orders table
-        //have a trigger to do this however it is causing an error
-        $sql = "DELETE FROM orderdetails_coursework WHERE order_id = " . $order_id;
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
+
     }
 }
