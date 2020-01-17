@@ -42,7 +42,7 @@ if(!isset($_SESSION['basket'])){
             <div class="navbar-nav ml-auto">
                 <a href="basket.php" class="nav-item nav-link">My Basket</a>
                 <a href="orders.php" class="nav-item nav-link">My Orders</a>
-                <a href="#" class="nav-item nav-link disabled">Administrator</a>
+                <a href="login.php" class="nav-item nav-link">Administrator</a>
             </div>
         </div>
     </nav>
