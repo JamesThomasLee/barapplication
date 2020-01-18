@@ -278,7 +278,24 @@ class DBContext
         $sql = "DELETE FROM orders_coursework WHERE order_id = " . $order_id;
         $statement = $this->connection->prepare($sql);
         $statement->execute();
+    }
 
+    public function getCategories(){
+        $sql = "SELECT * FROM `getcategories`";
 
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $categories = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $category = new Category($row['category']);
+                $categories[] = $category;
+            }
+        }
+        return $categories;
     }
 }
