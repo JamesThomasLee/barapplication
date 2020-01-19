@@ -75,7 +75,7 @@ class DBContext
     }
 
     public function MenuDrink_View(){
-        $sql = "SELECT * FROM `drinks`";
+        $sql = "SELECT * FROM `drinks_view`";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -88,7 +88,7 @@ class DBContext
         if($resultSet){
             foreach($resultSet as $row)
             {
-                $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['category'],
+                $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'],
                                                 $row['percentage'], $row['cost']);
                 $menu_items[] = $menu_item;
             }
@@ -108,7 +108,7 @@ class DBContext
         if($resultSet){
             foreach($resultSet as $row)
             {
-                $menu_item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['category'],
+                $menu_item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'],
                     $row['cost']);
                 $menu_items[] = $menu_item;
             }
@@ -340,4 +340,46 @@ class DBContext
 
         $statement->execute();
     }
+
+    public function getProductCategory($product_id){
+        $sql = "CALL getproductcat(:prod_id)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($resultSet as $row)
+            {
+                $result = $row['category'];
+            }
+        return $result;
+    }
+
+    public function getItemDetails($product_id, $category)
+    {
+        if ($category == "Bar Snacks") {
+            $sql = "CALL getItem(:prod_id)";
+            $statement = $this->connection->prepare($sql);
+            $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+            $statement->execute();
+            $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($resultSet as $row) {
+                $item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'], $row['cost']);
+            }
+            return $item;
+        }else{
+            $sql = "CALL getItem(:prod_id)";
+            $statement = $this->connection->prepare($sql);
+            $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+            $statement->execute();
+            $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($resultSet as $row){
+                $item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'], $row['percentage'], $row['cost']);
+            }
+            return $item;
+        }
+    }
+
 }

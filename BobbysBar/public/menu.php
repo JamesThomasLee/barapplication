@@ -47,6 +47,7 @@ include_once('../src/model/basketView.php');
         echo '</table>';
     }
 
+    echo "<br>";
     $snackResults = $db->MenuSnack_View();
 
     if($snackResults){
