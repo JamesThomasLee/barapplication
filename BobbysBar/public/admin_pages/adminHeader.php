@@ -34,9 +34,7 @@ if(isset($_SESSION["Authorised"]) && $_SESSION["authorised"] = true){
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="adminControlPanel.php.php" class="nav-item nav-link">Control Panel</a>
-                <a href="adminMenu.php.php" class="nav-item nav-link">Menu</a>
-                <a href="adminOrders.php.php" class="nav-item nav-link">Orders</a>
+                <a href="adminControlPanel.php" class="nav-item nav-link">Control Panel</a>
             </div>
 
             <div class="navbar-nav ml-auto">
