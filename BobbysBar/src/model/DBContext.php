@@ -298,4 +298,46 @@ class DBContext
         }
         return $categories;
     }
+
+    public function addDrinkItem($product_name, $product_supplier, $category, $percentage, $cost){
+        /* Commented out due to error - Error - only variables should be passed.
+        $sql = "CALL insertDrink(:product_name, :product_supplier, :category, :percentage, :cost)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':product_name', $item->getProductName(), PDO::PARAM_STR);
+        $statement->bindParam(':product_supplier', $item->getProductName(), PDO::PARAM_STR);
+        $statement->bindParam(':category', $item->getCategory(), PDO::PARAM_STR);
+        $statement->bindParam(':percentage', $item->getPercentage(), PDO::PARAM_STR);
+        $statement->bindParam(':cost', $item->getCost(), PDO::PARAM_STR);
+        */
+
+        $sql = "CALL insertDrink(:product_name, :product_supplier, :category, :percentage, :cost)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':product_name', $product_name, PDO::PARAM_STR);
+        $statement->bindParam(':product_supplier', $product_supplier, PDO::PARAM_STR);
+        $statement->bindParam(':category', $category, PDO::PARAM_STR);
+        $statement->bindParam(':percentage', $percentage, PDO::PARAM_STR);
+        $statement->bindParam(':cost', $cost, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
+
+    public function addSnackItem($product_name, $product_supplier, $category, $cost){
+        /* Commented out due to error - Error - only variables should be passed.
+        $sql = "CALL insertSnack(:product_name, :product_supplier, :category, :cost)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':product_name', $item->getProductName(), PDO::PARAM_STR);
+        $statement->bindParam(':product_supplier', $item->getProductName(), PDO::PARAM_STR);
+        $statement->bindParam(':category', $item->getCategory(), PDO::PARAM_STR);
+        $statement->bindParam(':cost', $item->getCost(), PDO::PARAM_STR);
+        */
+
+        $sql = "CALL insertDrink(:product_name, :product_supplier, :category, :cost)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':product_name', $product_name, PDO::PARAM_STR);
+        $statement->bindParam(':product_supplier', $product_supplier, PDO::PARAM_STR);
+        $statement->bindParam(':category', $category, PDO::PARAM_STR);
+        $statement->bindParam(':cost', $cost, PDO::PARAM_STR);
+
+        $statement->execute();
+    }
 }

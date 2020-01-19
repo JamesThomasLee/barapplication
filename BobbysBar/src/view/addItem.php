@@ -3,12 +3,9 @@ include '../../src/model/DBContext.php';
 include '../../src/model/Category.php';
 $db = new DBContext();
 $categories = $db->getCategories();
-
-print_r($categories);
-
 ?>
-s
-<form method="post" id="addItem">
+
+<form method="post" id="addItem" action="../../src/controller/adminAddItemController.php">
     <label for="product_name">Product Name:</label>
     <input type="text" name="product_name" placeholder="Product Name" minlength="1" maxlength="30" autocomplete="off">
     <br>
