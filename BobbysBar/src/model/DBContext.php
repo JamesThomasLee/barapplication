@@ -89,7 +89,7 @@ class DBContext
             foreach($resultSet as $row)
             {
                 $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'],
-                                                $row['percentage'], $row['cost']);
+                                                $row['percentage'], $row['cost'], $row['sale_status']);
                 $menu_items[] = $menu_item;
             }
         }
@@ -109,7 +109,7 @@ class DBContext
             foreach($resultSet as $row)
             {
                 $menu_item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'],
-                    $row['cost']);
+                    $row['cost'], $row['sale_status']);
                 $menu_items[] = $menu_item;
             }
         }

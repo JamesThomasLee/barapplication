@@ -7,14 +7,16 @@ class MenuSnack_View
     private $product_supplier;
     private $category;
     private $cost;
+    private $sale_status;
 
-    public function __construct($product_id, $product_name, $product_supplier, $category, $cost)
+    public function __construct($product_id, $product_name, $product_supplier, $category, $cost, $sale_status)
     {
         $this->product_id = $product_id;
         $this->product_name = $product_name;
         $this->product_supplier = $product_supplier;
         $this->category = $category;
         $this->cost = $cost;
+        $this->sale_status = $sale_status;
     }
 
     public function getProductId()
@@ -39,5 +41,10 @@ class MenuSnack_View
     public function getCost()
     {
         return $this->cost;
+    }
+
+    public function getSaleStatus()
+    {
+        return $this->sale_status;
     }
 }

@@ -8,8 +8,9 @@ class MenuDrink_View
     private $category;
     private $percentage;
     private $cost;
+    private $sale_status;
 
-    public function __construct($product_id, $product_name, $product_supplier, $category, $percentage, $cost)
+    public function __construct($product_id, $product_name, $product_supplier, $category, $percentage, $cost, $sale_status)
     {
         $this->product_id = $product_id;
         $this->product_name = $product_name;
@@ -17,6 +18,7 @@ class MenuDrink_View
         $this->category = $category;
         $this->percentage = $percentage;
         $this->cost = $cost;
+        $this->sale_status = $sale_status;
     }
 
     public function getProductId()
@@ -46,5 +48,10 @@ class MenuDrink_View
     public function getCost()
     {
         return $this->cost;
+    }
+
+    public function getSaleStatus()
+    {
+        return $this->SaleStatus;
     }
 }
