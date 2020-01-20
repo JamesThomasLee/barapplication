@@ -2,25 +2,22 @@
 include_once '../model/Menu_item.php';
 include_once '../model/DBContext.php';
 
-if(isset($_POST["addItem"])){
+if(isset($_POST["addItem"])) {
     $product_name = $_POST['product_name'];
     $product_supplier = $_POST['product_supplier'];
-    $category = $_POST['category'];
+    $category_id = $_POST['category'];
     $percentage = $_POST['percentage'];
     $cost = $_POST['cost'];
 
-    if($category == "Bar"){
-        echo 1 . "<br>";
-        echo $category;
-        $item = new MenuSnack_View(0, $product_name, $product_supplier, "Bar Snacks", $cost);
+    //if category is bar snacks then a seperate function is required as percentage is not passed as a parameter
+    if($category_id == 10){
+        $item = new MenuSnack_View(0, $product_name, $product_supplier, $category_id, $cost, "ONSALE");
         $db = new DBContext();
-        $db->addSnackItem($product_name, $product_supplier, $category,$cost);
+        $db->addSnackItem($product_name, $product_supplier, $category_id, $cost, "ONSALE");
     }else{
-        echo 2 . "<br>";
-        echo $category;
-        $item = new MenuDrink_View(0, $product_name, $product_supplier, $category, $percentage, $cost);
+        $item = new MenuDrink_View(0, $product_name, $product_supplier, $category_id, $percentage, $cost, "ONSALE");
         $db = new DBContext();
-        $db->addDrinkItem($product_name, $product_supplier, $category, $percentage, $cost);
+        $db->addDrinkItem($product_name, $product_supplier, $category_id, $percentage, $cost);
     }
 }
 ?>

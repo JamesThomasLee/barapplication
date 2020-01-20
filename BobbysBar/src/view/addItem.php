@@ -16,7 +16,7 @@ $categories = $db->getCategories();
     <select name="category">
         <?php
         foreach($categories as $category){
-            echo '<option value=' . $category->getCategory() . '>' . $category->getCategory() . '</option>';
+            echo '<option value=' . $category->getCategoryId() . '>' . $category->getCategory() . '</option>';
         }
         ?>
     </select>
