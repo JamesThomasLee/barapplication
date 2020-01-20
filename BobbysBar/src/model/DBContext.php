@@ -382,4 +382,25 @@ class DBContext
         }
     }
 
+    public function updateDrinkItem($product_id, $product_name, $product_supplier, $percentage, $cost){
+        $sql = "CALL updateDrinkItem(:prod_id, :prod_name, :prod_sup, :pct, :cst)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+        $statement->bindParam(':prod_name', $product_name, PDO::PARAM_STR);
+        $statement->bindParam(':prod_sup', $product_supplier, PDO::PARAM_STR);
+        $statement->bindParam(':pct', $percentage, PDO::PARAM_STR);
+        $statement->bindParam(':cst', $cost, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    public function updateSnackItem($product_id, $product_name, $product_supplier, $cost){
+        $sql = "CALL updateSnackItem(:prod_id, :prod_name, :prod_sup, :cst)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+        $statement->bindParam(':prod_name', $product_name, PDO::PARAM_STR);
+        $statement->bindParam(':prod_sup', $product_supplier, PDO::PARAM_STR);
+        $statement->bindParam(':cst', $cost, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
 }

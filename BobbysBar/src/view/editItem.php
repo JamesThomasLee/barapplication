@@ -4,6 +4,8 @@ include_once '../model/DBContext.php';
 
 if(isset($_POST["edit_item"])){
     $product_id = $_POST["edit_item"];
+    //used by controller to update item with new values
+    $_SESSION['product_id'] = $product_id;
     $db = new DBContext();
     $category = $db->getProductCategory($product_id);
     $results = $db->getItemDetails($product_id, $category);
@@ -20,7 +22,7 @@ if(isset($_POST["edit_item"])){
 
 ?>
 
-<form method="post" id="addItem" action="../../src/controller/adminEditItemController.php">
+<form method="post" id="editItem" action="../../src/controller/adminEditItemController.php">
     <label for="product_name">Product Name:</label>
     <input type="text" name="product_name" value="<?php echo $product_name; ?>" minlength="1" maxlength="30" autocomplete="off">
     <br>
@@ -28,11 +30,11 @@ if(isset($_POST["edit_item"])){
     <input type="text" name="product_supplier" value="<?php echo $product_supplier; ?>" minlength="1" maxlength="30" autocomplete="off">
     <br>
     <label for="product_supplier">Category:</label>
-    <input type="text" name="category" value="<?php echo $category; ?>" minlength="1" maxlength="30" disabled autocomplete="off">
+    <input type="text" name="category" value="<?php echo $category; ?>" minlength="1" maxlength="30" readonly autocomplete="off">
     <br>
     <label for="percentage">Percentage (if applicable):</label>
     <input type="text" name="percentage" value="<?php echo $percentage; ?>" minlength="1" maxlength="2" autocomplete="off"
-    <?php if($category == "Bar Snacks"){echo " disabled";} ?>>
+    <?php if($category == "Bar Snacks"){echo " readonly";} ?>>
     <br>
     <label for="cost">Cost:</label>
     <input type="text" name="cost" value="<?php echo $cost; ?>" minlength="1" maxlength="6" autocomplete="off">
