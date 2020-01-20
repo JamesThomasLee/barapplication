@@ -17,7 +17,8 @@ if(isset($_POST["addItem"])) {
     }else{
         $item = new MenuDrink_View(0, $product_name, $product_supplier, $category_id, $percentage, $cost, "ONSALE");
         $db = new DBContext();
-        $db->addDrinkItem($product_name, $product_supplier, $category_id, $percentage, $cost);
+        $db->addDrinkItem($product_name, $product_supplier, $category_id, $percentage, $cost, "ONSALE");
     }
+    header("Location: ../../public/admin_pages/adminMenu.php");
 }
 ?>

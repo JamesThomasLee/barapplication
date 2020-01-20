@@ -23,9 +23,9 @@ if ($drinkResults) {
         $category = $result->getCategory();
         $percentage = $result->getPercentage();
         $cost = $result->getCost();
-        $quantity = 1;
+        $sale_status = $result->getSaleStatus();
 
-        $item = new ItemInBasket($product_id, $product_name, $category, $cost, $quantity);
+        $item = new ItemInBasket($product_id, $product_name, $category, $cost, 1);
         $serialized = base64_encode(serialize($item));
 
         echo '<tr>';
@@ -33,6 +33,7 @@ if ($drinkResults) {
         echo '<td>' . $category . '</td>';
         echo '<td>' . $percentage . "%" . '</td>';
         echo '<td>' . "£" . $cost . '</td>';
+        echo '<td>' . $sale_status . '</td>';
         echo '<td>';
         echo '<form action="../../src/view/editItem.php" method="post">';
         echo '<button type="submit" name="edit_item" value="' . $product_id . '">Edit Item</button>';
@@ -63,15 +64,16 @@ if ($snackResults) {
         $product_name = $result->getProductName();
         $category = $result->getCategory();
         $cost = $result->getCost();
-        $quantity = 1;
+        $sale_status = $result->getSaleStatus();
 
-        $item = new basketView($product_id, $product_name, $category, $cost, $quantity);
+        $item = new basketView($product_id, $product_name, $category, $cost, 1);
         $serialized = base64_encode(serialize($item));
 
         echo '<tr>';
         echo '<td>' . $product_name . '</td>';
         echo '<td>' . $category . '</td>';
         echo '<td>' . "£" . $cost . '</td>';
+        echo '<td>' . $sale_status . '</td>';
         echo '<td>';
         echo '<form action="../../src/view/editItem.php" method="post">';
         echo '<button type="submit" name="edit_item" value="' . $product_id . '">Edit Item</button>';

@@ -22,7 +22,7 @@ $categories = $db->getCategories();
     </select>
     <br>
     <label for="percentage">Percentage (if applicable):</label>
-    <input type="text" name="percentage" placeholder="Percentage" minlength="1" maxlength="2" autocomplete="off">
+    <input type="text" name="percentage" placeholder="Percentage" minlength="1" maxlength="4" autocomplete="off">
     <br>
     <label for="cost">Cost:</label>
     <input type="text" name="cost" placeholder="Cost" minlength="1" maxlength="6" autocomplete="off">

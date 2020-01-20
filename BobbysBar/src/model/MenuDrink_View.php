@@ -52,6 +52,6 @@ class MenuDrink_View
 
     public function getSaleStatus()
     {
-        return $this->SaleStatus;
+        return $this->sale_status;
     }
 }
