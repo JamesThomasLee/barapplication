@@ -31,7 +31,7 @@ if($results){
         echo '<td>'. $customer_id . '</td>';
         echo '<td>'. $table_number . '</td>';
         echo '<td>';
-        echo '<form action="../src/controller/" method="post">';
+        echo '<form action="../../public/admin_pages/adminViewOrder.php" method="post">';
         echo '<button type="submit" name="view_order" value="' . $order_id . '">View Order</button>';
         echo '</form>';
         echo '</td>';
