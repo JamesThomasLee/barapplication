@@ -96,8 +96,50 @@ class DBContext
         return $menu_items;
     }
 
+    public function adminMenuDrink_View(){
+        $sql = "SELECT * FROM `admindrinks_view`";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $menu_items = [];
+
+        // print_r($resultSet);
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $menu_item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'],
+                    $row['percentage'], $row['cost'], $row['sale_status']);
+                $menu_items[] = $menu_item;
+            }
+        }
+        return $menu_items;
+    }
+
     public function MenuSnack_View(){
         $sql = "SELECT * FROM `menusnack_view`";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $menu_items = [];
+
+        if($resultSet){
+            foreach($resultSet as $row)
+            {
+                $menu_item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'],
+                    $row['cost'], $row['sale_status']);
+                $menu_items[] = $menu_item;
+            }
+        }
+        return $menu_items;
+    }
+
+    public function adminMenuSnack_View(){
+        $sql = "SELECT * FROM `adminsnacks_view`";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -352,14 +394,14 @@ class DBContext
 
             foreach($resultSet as $row)
             {
-                $result = $row['category'];
+                $category = new Category($row['category_id'], $row['category']);
             }
-        return $result;
+        return $category;
     }
 
-    public function getItemDetails($product_id, $category)
+    public function getItemDetails($product_id, $categoryID)
     {
-        if ($category == "Bar Snacks") {
+        if ($categoryID == 10) {
             $sql = "CALL getItem(:prod_id)";
             $statement = $this->connection->prepare($sql);
             $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
@@ -367,7 +409,7 @@ class DBContext
             $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($resultSet as $row) {
-                $item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'], $row['cost']);
+                $item = new MenuSnack_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category_id'], $row['cost'], $row['sale_status']);
             }
             return $item;
         }else{
@@ -378,7 +420,8 @@ class DBContext
             $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
 
             foreach($resultSet as $row){
-                $item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['product_supplier'], $row['category'], $row['percentage'], $row['cost']);
+                $item = new MenuDrink_View($row['product_id'], $row['product_name'], $row['product_supplier'],
+                    $row['category_id'], $row['percentage'], $row['cost'], $row['sale_status']);
             }
             return $item;
         }
@@ -405,4 +448,28 @@ class DBContext
         $statement->execute();
     }
 
+    public function changeItemStatus($product_id){
+        $sql = "CALL getItemState(:prod_id)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($resultSet as $row)
+        {
+            $sale_status = $row['sale_status'];
+        }
+
+        if($sale_status == "ONSALE"){
+            $newSale_status = "OFFSALE";
+        }else{
+            $newSale_status = "ONSALE";
+        }
+
+        $sql = "CALL changeItemState(:prod_id, :sale_status)";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':prod_id', $product_id, PDO::PARAM_STR);
+        $statement->bindParam(':sale_status', $newSale_status, PDO::PARAM_STR);
+        $statement->execute();
+    }
 }

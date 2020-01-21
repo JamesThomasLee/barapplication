@@ -27,5 +27,6 @@ $categories = $db->getCategories();
     <label for="cost">Cost:</label>
     <input type="text" name="cost" placeholder="Cost" minlength="1" maxlength="6" autocomplete="off">
     <br>
+    <input type="submit" name="cancel" value="Cancel">
     <input type="submit" name="addItem" value="Add Product To Menu">
 </form>

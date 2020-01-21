@@ -21,4 +21,8 @@ if(isset($_POST["addItem"])) {
     }
     header("Location: ../../public/admin_pages/adminMenu.php");
 }
+
+if(isset($_POST['cancel'])){
+    header("Location: ../../public/admin_pages/adminMenu.php");
+}
 ?>

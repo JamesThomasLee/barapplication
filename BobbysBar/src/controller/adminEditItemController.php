@@ -19,4 +19,16 @@ if(isset($_POST["editItem"])){
     }
     header("Location: ../../public/admin_pages/adminMenu.php");
 }
+
+if(isset($_POST["change_status"])){
+    $product_id = $_POST['change_status'];
+    $db = new DBContext();
+    $db->changeItemStatus($product_id);
+    header("Location: ../../public/admin_pages/adminMenu.php");
+}
+
+if(isset($_POST['cancel'])){
+    header("Location: ../../public/admin_pages/adminMenu.php");
+}
+
 ?>

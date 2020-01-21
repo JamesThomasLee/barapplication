@@ -8,7 +8,7 @@ include_once '../../src/model/ItemInBasket.php';
 include_once '../../src/model/basketView.php';
 
 $db = new DBContext();
-$drinkResults = $db->MenuDrink_View();
+$drinkResults = $db->adminMenuDrink_View();
 
 if ($drinkResults) {
     $tableString = '<table border="1px solid black">';
@@ -40,7 +40,7 @@ if ($drinkResults) {
         echo '</form>';
         echo '</td>';
         echo '<td>';
-        echo '<form action="../src/controller/basketController.php" method="post">';
+        echo '<form action="../../src/controller/adminEditItemController.php" method="post">';
         echo '<button type="submit" name="change_status" value="' . $product_id . '">On/Off Sale</button>';
         echo '</form>';
         echo '</td>';
@@ -50,7 +50,7 @@ if ($drinkResults) {
 }
 
 echo "<br>";
-$snackResults = $db->MenuSnack_View();
+$snackResults = $db->adminMenuSnack_View();
 
 if ($snackResults) {
     $tableString = '<table border="1px solid black">';
@@ -80,7 +80,7 @@ if ($snackResults) {
         echo '</form>';
         echo '</td>';
         echo '<td>';
-        echo '<form action="../src/controller/basketController.php" method="post">';
+        echo '<form action="../../src/controller/adminEditItemController.php" method="post">';
         echo '<button type="submit" name="change_status" value="' . $product_id . '">On/Off Sale</button>';
         echo '</form>';
         echo '</td>';
