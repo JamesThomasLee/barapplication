@@ -23,12 +23,6 @@ if(isset($_POST['placeOrder'])){
     $_SESSION["order_time"] = $order_time;
     $_SESSION["table_number"] = $order_time;
 
-    echo $first_name . '<br>';
-    echo $surname . '<br>';
-    echo $email . '<br>';
-    echo $table_number . '<br>';
-    echo $order_time . '<br>';
-
     //check if customer exists
         $db = new DBContext();
         $result = $db->checkCustomer($email);
@@ -74,6 +68,7 @@ if(isset($_POST['placeOrder'])){
             }
         }
     session_destroy();
+    header("Location: ../../public/orderConfirm.php");
 }
 
 ?>

@@ -471,4 +471,22 @@ class DBContext
         $statement->bindParam(':sale_status', $newSale_status, PDO::PARAM_STR);
         $statement->execute();
     }
+
+    public function adminOrders(){
+        $sql = "SELECT * FROM `adminorders`";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $orders = [];
+
+        if($resultSet){
+            foreach($resultSet as $row){
+                $order = new orderView_Admin($row['order_id'], $row['date_time'], $row['customer_id'], $row['table_number']);
+                $orders[] = $order;
+            }
+        }
+
+        return $orders;
+    }
 }
