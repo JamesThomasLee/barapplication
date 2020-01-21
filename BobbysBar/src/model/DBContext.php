@@ -224,12 +224,11 @@ class DBContext
 
         $statement->execute();
         $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
         $customerOrderDetails = [];
 
         if($resultSet){
             foreach($resultSet as $row){
-                $customerOrderDetail = new orderDetailView_Customer($row['product_id'], $row['product_name'], $row['cost'], $row['quantity']);
+                $customerOrderDetail = new orderDetailView_Customer($row['product_name'], $row['cost'], $row['quantity']);
                 $customerOrderDetails[] = $customerOrderDetail;
             }
         }

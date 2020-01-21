@@ -37,6 +37,17 @@ if(isset($_POST['placeOrder'])){
         if($result){
             $customer_id = implode($result);
             $db->insertOrder($customer_id, $table_number, $order_time);
+            //getOrderId for orderdetails table
+            $order_id = $db->getLastOrderId();
+            //insert basket items to order details table
+            $totalCost = 0;
+            foreach ($_SESSION['basket'] as $item){
+                $product_id = $item->getProductId();
+                $itemCost = $item->getCost();
+                //quantity will be fixed later
+                $quantity = 1;
+                $db->insertOrderDetail($order_id, $product_id, $quantity);
+            }
         }else{
             //no customer with that email
             //create customer (customer id set as 0 as it is not passed in. It is auto assigned)
@@ -57,13 +68,12 @@ if(isset($_POST['placeOrder'])){
             foreach ($_SESSION['basket'] as $item){
                 $product_id = $item->getProductId();
                 $itemCost = $item->getCost();
-                $totalCost = $totalCost + $itemCost;
                 //quantity will be fixed later
                 $quantity = 1;
                 $db->insertOrderDetail($order_id, $product_id, $quantity);
             }
-            $_SESSION["order_TotalCost"] = $totalCost;
         }
+    session_destroy();
 }
 
 ?>

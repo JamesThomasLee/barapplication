@@ -8,5 +8,5 @@ if(isset($_POST["deleteOrder"])) {
     $db = new DBContext();
     $results = $db->orderDelete($_SESSION["order_id"]);
     $_SESSION["order_id"] = null;
-    header("Location: ../../public/header.php");
+    header("Location: ../../public/index.php");
 }

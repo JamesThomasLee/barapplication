@@ -26,11 +26,20 @@ include_once '../src/model/orderDetailView_Customer.php';
         if($results){
             $id = $results->getOrderId();
             $tablenum = $results->getTableNumber();
-            echo "<b>Order ID: </b>" . $id . "<br>";
-            echo "<b>Table Number: </b>" . $tablenum . "<br>";
-
             $results = "";
             $results = $db->orderDetails_Retrieve($orderID);
+
+            //get total cost
+            $totalcost = 0;
+            foreach($results as $result){
+                $cost = $result->getCost();
+                $quantity = $result->getQuantity();
+                //total cost calculation
+                $totalcost = $totalcost + ($cost * $quantity);
+            }
+            echo "<b>Order ID: </b>" . $id . "<br>";
+            echo "<b>Table Number: </b>" . $tablenum . "<br>";
+            echo "<b>Total Cost: </b>" . "£" . $totalcost . "<br>";
 
             $tableString = '<table border="1">';
             $tableString .= '<tr>';
@@ -38,7 +47,6 @@ include_once '../src/model/orderDetailView_Customer.php';
             $tableString .= '<th> Cost </th>';
             $tableString .= '<th> Quantity </th>';
             $tableString .= '</tr>';
-
             echo $tableString;
 
             foreach($results as $result){
@@ -48,7 +56,7 @@ include_once '../src/model/orderDetailView_Customer.php';
 
                 echo '<tr>';
                 echo '<td>'. $product_name . '</td>';
-                echo '<td>'. $cost . '</td>';
+                echo '<td>'. '£' . $cost . '</td>';
                 echo '<td>'. $quantity . '</td>';
                 echo '</tr>';
             }

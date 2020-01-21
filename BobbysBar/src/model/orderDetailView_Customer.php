@@ -7,17 +7,11 @@ class orderDetailView_Customer
     protected $cost;
     protected $quantity;
 
-    public function __construct($product_id, $product_name, $cost, $quantity)
+    public function __construct($product_name, $cost, $quantity)
     {
-        $this->product_id = $product_id;
         $this->product_name = $product_name;
         $this->cost = $cost;
         $this->quantity=$quantity;
-    }
-
-    public function getProductId()
-    {
-        return $this->product_id;
     }
 
     public function getProduct_Name()
