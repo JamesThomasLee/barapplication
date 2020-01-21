@@ -36,7 +36,6 @@ $_SESSION["Authorised"] = false;
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="index.php" class="nav-item nav-link">Home</a>
-                <a href="about.php" class="nav-item nav-link">About</a>
                 <a href="menu.php" class="nav-item nav-link">Menu</a>
 
             </div>
