@@ -31,6 +31,16 @@ class DBContext
         }
     }
 
+    public function apiCall(){
+        $sql = "SELECT * FROM `menu_coursework`";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultSet;
+    }
+
     public function Customer()
     {
         $sql = "";
