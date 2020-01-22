@@ -26,6 +26,8 @@ if(isset($_POST['placeOrder'])){
     $errors = validateName($surname, $errors);
     $errors = validateEmail($email, $errors);
     print_r($errors);
+    //back button
+    echo '<button onclick="history.back()">Go Back</button>';
 
     if($errors == null){
         //collect order data
