@@ -5,6 +5,9 @@ include_once 'MenuSnack_View.php';
 include_once 'orderView_Customer.php';
 include_once 'orderDetailView_Customer.php';
 
+//DBContext features all of the details required to connect to the database. The construct function is the
+//function that will connect to it.
+//The rest of the functions in this class are used to manipulate data in the database.
 class DBContext
 {
     private $db_server = 'Proj-mysql.uopnet.plymouth.ac.uk';
@@ -31,6 +34,7 @@ class DBContext
         }
     }
 
+    //apiCall is used by the api to return all data from the menu
     public function apiCall(){
         $sql = "SELECT * FROM `menu_coursework`";
 
@@ -84,6 +88,11 @@ class DBContext
         return $menu_items;
     }
 
+    /*
+    Menu drink view is used by the menu page to call a view that displays only the drinks in the menu.
+    This calls only the drinks as snacks do not have a field in the percentage category causing an error when
+    trying to return that data.
+    */
     public function MenuDrink_View(){
         $sql = "SELECT * FROM `drinks_view`";
 
@@ -106,6 +115,10 @@ class DBContext
         return $menu_items;
     }
 
+    /*
+    This function is almost identical to menu drink view however it returns a view for the admin
+    menu instead. This is different as it's required to handle extra data such as product supplier and sale status.
+    */
     public function adminMenuDrink_View(){
         $sql = "SELECT * FROM `admindrinks_view`";
 
@@ -128,6 +141,9 @@ class DBContext
         return $menu_items;
     }
 
+    /*
+     * Same principle as menu drink view however it returns only the data required for all bar snacks.
+     */
     public function MenuSnack_View(){
         $sql = "SELECT * FROM `menusnack_view`";
 
@@ -148,6 +164,10 @@ class DBContext
         return $menu_items;
     }
 
+    /*
+     * Returns all data required for bar snacks in the admin menu. Includes extra data such as product supplier
+     * and sale status.
+     */
     public function adminMenuSnack_View(){
         $sql = "SELECT * FROM `adminsnacks_view`";
 
@@ -208,6 +228,11 @@ class DBContext
         return $order_details;
     }
 
+    /*
+     * Order retrieve calls an sql procedure. The order ID is passed into the function with is used by the procedure.
+     * The procedure then returns data of the order such as order date/time, table number etc.
+     * This data is then returned as a orderview_Customer object.
+     */
     public function order_Retrieve($orderID){
         $sql = "CALL OrderRetrieve(:orderID)";
         $statement = $this->connection->prepare($sql);
@@ -227,6 +252,11 @@ class DBContext
         return $customerOrder;
     }
 
+    /*
+     * This function is similar to orderDetails_Retrieve however the procedure returns details of all of the items
+     * in the procedure. These are used to create objects orderDetailView_Customer which is then passed into an array list.
+     * The more items in the order the more items in the array list.
+     */
     public function orderDetails_Retrieve($orderID){
         $sql = "CALL OrderDetailsRetrieve(:orderID)";
         $statement = $this->connection->prepare($sql);
@@ -246,6 +276,10 @@ class DBContext
         return $customerOrderDetails;
     }
 
+    /*
+     * Check customer is used to call a procedure to check if a customer already exists in the database.
+     * If a customer exists then the procedure returns their customer ID.
+     */
     public function checkCustomer($email){
         $sql = "CALL checkCustomer(:email)";
         $statement = $this->connection->prepare($sql);
@@ -260,6 +294,11 @@ class DBContext
         return $result;
     }
 
+    /*
+     * If a customer does not exist in the database, when they place an order this function is used to input
+     * their customer details and call a procedure to insert them into the customer table. I did intend to use OOP to insert
+     * a customer object however binding parameters was causing an error.
+     */
     public function insertCustomer($first_name, $surname, $email){
         $sql = "CALL insertCustomer(:first_name, :surname, :email)";
         $statement = $this->connection->prepare($sql);
@@ -270,6 +309,9 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * This function uses user inputted data to insert their order into the orders table.
+     */
     public function insertOrder($customer_id, $table_number, $order_time){
         $sql = "CALL insertOrder(:customer_id, :table_number, :date_time)";
         $statement = $this->connection->prepare($sql);
@@ -280,6 +322,10 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * This function receives details of an item a user has added to their order. These details are then
+     * added to the order details table by a procedure called in this function.
+     */
     public function insertOrderDetail($order_id, $product_id, $quantity){
         $sql = "CALL insertOrderDetail(:order_id, :product_id, :quantity)";
         $statement = $this->connection->prepare($sql);
@@ -290,6 +336,10 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * This function is used to call a view that returns the order id of the last inserted order.
+     * This is used by the order confirmation page to display the details of customers order upon completion.
+     */
     public function getLastOrderId(){
         $sql = "SELECT * FROM `lastorderid`";
 
@@ -305,6 +355,14 @@ class DBContext
         return $result;
     }
 
+    /*
+     * This function has several stages. The orderid is passed in which is then used to call multiple procedures/sql statements.
+     * I do not want data to be permanently deleted from the database. I prevent this by moving any deleted order information
+     * such as the order itself and the order details to archive tables. Once this is complete the function then deletes the
+     * data from the main order and order details table.
+     * I trigger was designed to delete data once it had been moved however this was causing an error due to the trigger firing on
+     * the table that the data has been moved from. I removed the trigger and used sql statements to carry out the deletion.
+     */
     public function orderDelete($order_id){
         //move order into archive order table (call procedure)
         $sql = "CALL moveOrder(:order_id)";
@@ -331,6 +389,10 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * This function calls a view to return all of the categories from the categories table. This is used by the
+     * dropdowns when an admin is adding a new item to prevent a typo from causing an error.
+     */
     public function getCategories(){
         $sql = "SELECT * FROM `getcategories`";
 
@@ -350,6 +412,10 @@ class DBContext
         return $categories;
     }
 
+    /*
+     * This function passes in user inputted data which is then passed into a sql procedure to insert the data as a new
+     * drink item into the menu. Again OOP should have been used however it was causing an error on binding.
+     */
     public function addDrinkItem($product_name, $product_supplier, $category_id, $percentage, $cost, $sale_status){
         /* Commented out due to error - Error - only variables should be passed.
         $sql = "CALL insertDrink(:product_name, :product_supplier, :category, :percentage, :cost)";
@@ -373,6 +439,10 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * Similar function to add drink item however the parameters are different due to no percentage being required for
+     * bar snacks.
+     */
     public function addSnackItem($product_name, $product_supplier, $category_id, $cost, $sale_status){
         /* Commented out due to error - Error - only variables should be passed.
         $sql = "CALL insertSnack(:product_name, :product_supplier, :category, :cost)";
@@ -394,6 +464,11 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * Get product category calls a procedure that is used to return the category of a particular product.
+     * This is necessary to pre-fill the text box on update item page. I wanted to pre-fill the text box to prevent
+     * the administrator inserting a wrong category causing an error.
+     */
     public function getProductCategory($product_id){
         $sql = "CALL getproductcat(:prod_id)";
         $statement = $this->connection->prepare($sql);
@@ -408,6 +483,10 @@ class DBContext
         return $category;
     }
 
+    /*
+     * Get item details is used to return the item details of a particular item and its category.
+     * This is used when pre-filling an update item form with item data.
+     */
     public function getItemDetails($product_id, $categoryID)
     {
         if ($categoryID == 10) {
@@ -436,6 +515,10 @@ class DBContext
         }
     }
 
+    /*
+     * update drink item is used to take all of the data from the admin item update form and pass it into a procedure
+     * that updates the particular item in the menu. OOP should have been used however it was causing an error on binding.
+     */
     public function updateDrinkItem($product_id, $product_name, $product_supplier, $percentage, $cost){
         $sql = "CALL updateDrinkItem(:prod_id, :prod_name, :prod_sup, :pct, :cst)";
         $statement = $this->connection->prepare($sql);
@@ -447,6 +530,10 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * update drink item is used to take all of the data from the admin item update form and pass it into a procedure
+     * that updates the particular item in the menu. OOP should have been used however it was causing an error on binding.
+     */
     public function updateSnackItem($product_id, $product_name, $product_supplier, $cost){
         $sql = "CALL updateSnackItem(:prod_id, :prod_name, :prod_sup, :cst)";
         $statement = $this->connection->prepare($sql);
@@ -457,6 +544,11 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * This function is called when the change status button is pressed on the admin menu. This changes the sale state of
+     * an item from ONSALE to OFFSALE or OFFSALE to ONSALE. This sale status value is used by the menu views to determine
+     * whether or not an item is displayed on the user menu for sale.
+     */
     public function changeItemStatus($product_id){
         $sql = "CALL getItemState(:prod_id)";
         $statement = $this->connection->prepare($sql);
@@ -482,6 +574,10 @@ class DBContext
         $statement->execute();
     }
 
+    /*
+     * Admin orders is a function used to call a view which displays every order placed. This is used in the admin
+     * section of the website.
+     */
     public function adminOrders(){
         $sql = "SELECT * FROM `adminorders`";
         $statement = $this->connection->prepare($sql);
