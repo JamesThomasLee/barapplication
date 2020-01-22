@@ -32,6 +32,8 @@ $errors = array();
 
             //if the function finds a matching order
             if($results){
+                //clear errors
+                $errors = null;
                 //display basic order information
                 $id = $results->getOrderId();
                 $tablenum = $results->getTableNumber();

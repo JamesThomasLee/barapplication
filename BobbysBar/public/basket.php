@@ -21,7 +21,7 @@ include 'header.php';
 $counter = -1;
 $tableString = '<table border="1">';
 $tableString .= '<tr>';
-$tableString .= '<th colspan="3"> Your Basket:</th>';
+$tableString .= '<th colspan="2"> Your Basket:</th>';
 $tableString .= '</tr>';
 echo $tableString;
 echo '<td>'. "Item" . '</td>';
@@ -52,13 +52,12 @@ foreach ($_SESSION['basket'] as $item){
             echo '<option value=' . $i . '>' . $i . '</option>';
         }
     echo '</select>';
-    echo '<td>';
     */
+    echo '<td>';
     echo '<form action="../src/controller/basketController.php" method="post">';
     echo '<button type="submit" name="remove_basket" value="' . $product_id . '">Remove Item</button>';
     echo '</form>';
-    echo '<td>'. $counter . '</td>';
-    echo '<td>';
+    echo '</td>';
     echo '</tr>';
 }
 echo '</table>';

@@ -5,6 +5,7 @@ include_once '../model/Order.php';
 include_once '../model/ItemInBasket.php';
 include_once '../model/basketView.php';
 session_start();
+$errors = array();
 
 /*
  * When an order is placed, the controller first checks whether or not a user with the same details already exists.
@@ -16,22 +17,29 @@ session_start();
 
 if(isset($_POST['placeOrder'])){
     //collect customer data
-    $first_name = $_POST['first_name'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
+    $first_name = trimInputs($_POST['first_name']);
+    $surname = trimInputs($_POST['surname']);
+    $email = trimInputs($_POST['email']);
 
-    //collect order data
-    $table_number = $_POST['table_number'];
-    date_default_timezone_set("Europe/London");
-    $order_time = date("Y-m-d H:i:s");
+    //validate user inputs
+    $errors = validateName($first_name, $errors);
+    $errors = validateName($surname, $errors);
+    $errors = validateEmail($email, $errors);
+    print_r($errors);
 
-    //set sessions for order confirmation page
-    $_SESSION["cust_email"] = $email;
-    $_SESSION["cust_name"] = $first_name . " " . $surname;
-    $_SESSION["order_time"] = $order_time;
-    $_SESSION["table_number"] = $order_time;
+    if($errors == null){
+        //collect order data
+        $table_number = $_POST['table_number'];
+        date_default_timezone_set("Europe/London");
+        $order_time = date("Y-m-d H:i:s");
 
-    //check if customer exists
+        //set sessions for order confirmation page
+        $_SESSION["cust_email"] = $email;
+        $_SESSION["cust_name"] = $first_name . " " . $surname;
+        $_SESSION["order_time"] = $order_time;
+        $_SESSION["table_number"] = $table_number;
+
+        //check if customer exists
         $db = new DBContext();
         $result = $db->checkCustomer($email);
 
@@ -75,7 +83,40 @@ if(isset($_POST['placeOrder'])){
                 $db->insertOrderDetail($order_id, $product_id, $quantity);
             }
         }
-    header("Location: ../../public/orderConfirm.php");
+        header("Location: ../../public/orderConfirm.php");
+    }
+}
+
+function trimInputs($input){
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
+}
+
+function validateName($name, $errors){
+    if(empty($name)){
+        array_push($errors, "*Please enter both your first name and surname.");
+    }else{
+        if(strlen($name) > 29){
+            array_push($errors, "Name too long");
+        }
+        if(!ctype_alpha($name)) {
+            array_push($errors, "*Please enter a valid name.");
+        }
+    }
+    return $errors;
+}
+
+function validateEmail($email, $errors){
+    if(empty($email)){
+        array_push($errors, "*Please enter a valid email address.");
+    }else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($errors, "*Invalid email");
+        }
+    }
+    return $errors;
 }
 
 ?>
