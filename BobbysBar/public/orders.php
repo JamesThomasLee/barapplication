@@ -4,14 +4,22 @@
 include_once('../src/model/DBContext.php');
 include_once '../src/model/orderView_Customer.php';
 include_once '../src/model/orderDetailView_Customer.php';
+/*
+ * This page is used to allow a user to look up their order. They input their order number. If the order number
+ * does not match an order in the database then an error message is displayed. If it does match an order then this order
+ * is displayed on this page.
+ * The user will have an option to cancel their order on this page.
+ */
+
 ?>
 
 <body>
 <p>
     <?php
+    //include order look up form.
     include_once('../src/view/orderLookUp.php');
 
-
+    //if search button is pressed
     if(isset($_POST['orderLookUp'])){
         //collect orderID from text box
         $orderID = $_POST['order_id'];
@@ -23,10 +31,13 @@ include_once '../src/model/orderDetailView_Customer.php';
         $db = new DBContext();
         $results = $db->order_Retrieve($orderID);
 
+        //if the function finds a matching order
         if($results){
+            //display basic order information
             $id = $results->getOrderId();
             $tablenum = $results->getTableNumber();
             $results = "";
+            //call a function to get details of items in the order
             $results = $db->orderDetails_Retrieve($orderID);
 
             //get total cost
@@ -41,6 +52,7 @@ include_once '../src/model/orderDetailView_Customer.php';
             echo "<b>Table Number: </b>" . $tablenum . "<br>";
             echo "<b>Total Cost: </b>" . "£" . $totalcost . "<br>";
 
+            //create a table to display items in order
             $tableString = '<table border="1">';
             $tableString .= '<tr>';
             $tableString .= '<th> Item </th>';
@@ -49,6 +61,7 @@ include_once '../src/model/orderDetailView_Customer.php';
             $tableString .= '</tr>';
             echo $tableString;
 
+            //add a table row for each item in order
             foreach($results as $result){
                 $product_name = $result->getProduct_Name();
                 $cost = $result->getCost();
@@ -68,6 +81,7 @@ include_once '../src/model/orderDetailView_Customer.php';
             echo "</form>";
 
         }else{
+            //message displayed if an order is not found
             echo "Order not found.";
         }
     }

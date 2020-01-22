@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//checks a user has logged in when trying to access an admin page. Redirected out of admin section if not.
 if(isset($_SESSION["Authorised"]) && $_SESSION["authorised"] = true){
 }else{
     header("Location: ../index.php");

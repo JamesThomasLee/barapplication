@@ -3,6 +3,12 @@ include '../../src/model/DBContext.php';
 include '../../src/model/Category.php';
 $db = new DBContext();
 $categories = $db->getCategories();
+
+/*
+ * This is a form used to allow an admin to enter data about a new item.
+ * getCategories is used to populate a select tag with existing categories.
+ */
+
 ?>
 
 <form method="post" id="addItem" action="../../src/controller/adminAddItemController.php">

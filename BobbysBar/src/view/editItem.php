@@ -3,6 +3,13 @@ include_once '../../public/admin_pages/adminHeader.php';
 include_once '../model/DBContext.php';
 include_once '../model/Category.php';
 
+/*
+ * This form is used to edit an item.
+ * When this form is loaded, the php functions below collect the data on a specific item to pre-populate the form.
+ * Category cannot be edited.
+ * Percentage cannot be edited if category = bar snacks.
+ */
+
 if(isset($_POST["edit_item"])){
     $product_id = $_POST["edit_item"];
     //used by controller to update item with new values

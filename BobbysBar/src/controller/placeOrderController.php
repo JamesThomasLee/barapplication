@@ -6,6 +6,14 @@ include_once '../model/ItemInBasket.php';
 include_once '../model/basketView.php';
 session_start();
 
+/*
+ * When an order is placed, the controller first checks whether or not a user with the same details already exists.
+ * The controller calls the checkCustomer db function. If a customer is returned then a customer with the same details
+ * already exists. The other is then placed with their existing customer ID.
+ * If a customer is not returned, then a customer is created, their customer id is returned, and then their order is
+ * inserted with the new customer id.
+ */
+
 if(isset($_POST['placeOrder'])){
     //collect customer data
     $first_name = $_POST['first_name'];
@@ -17,7 +25,7 @@ if(isset($_POST['placeOrder'])){
     date_default_timezone_set("Europe/London");
     $order_time = date("Y-m-d H:i:s");
 
-    //set sessions for confirmation page
+    //set sessions for order confirmation page
     $_SESSION["cust_email"] = $email;
     $_SESSION["cust_name"] = $first_name . " " . $surname;
     $_SESSION["order_time"] = $order_time;
@@ -67,7 +75,6 @@ if(isset($_POST['placeOrder'])){
                 $db->insertOrderDetail($order_id, $product_id, $quantity);
             }
         }
-    session_destroy();
     header("Location: ../../public/orderConfirm.php");
 }
 

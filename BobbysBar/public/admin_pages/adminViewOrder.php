@@ -3,6 +3,10 @@
 <?php include '../../public/admin_pages/adminHeader.php';
 include_once '../../src/model/DBContext.php';
 
+/*
+ * This page is displayed when a user clicks the view order button.
+ * It displays the order in more detail with each item in the order being displayed.
+ */
 
 if(isset($_POST['view_order'])){
     $order_id = $_POST['view_order'];
@@ -15,7 +19,7 @@ if(isset($_POST['view_order'])){
     $results = "";
     $results = $db->orderDetails_Retrieve($order_id);
 
-    //get total cost
+    //get total cost of the order
     $totalcost = 0;
     foreach($results as $result){
         $cost = $result->getCost();
@@ -27,6 +31,7 @@ if(isset($_POST['view_order'])){
     echo "<b>Table Number: </b>" . $tablenum . "<br>";
     echo "<b>Total Cost: </b>" . "£" . $totalcost . "<br>";
 
+    //create a table to display all items in the order
     $tableString = '<table border="1">';
     $tableString .= '<tr>';
     $tableString .= '<th> Item </th>';
@@ -35,6 +40,7 @@ if(isset($_POST['view_order'])){
     $tableString .= '</tr>';
     echo $tableString;
 
+    //create a table row for each item in the order
     foreach($results as $result){
         $product_name = $result->getProduct_Name();
         $cost = $result->getCost();
@@ -48,6 +54,7 @@ if(isset($_POST['view_order'])){
     }
     echo '</table>';
 
+    //back button
     echo '<button onclick="history.back()">Go Back</button>';
 
 }
