@@ -25,7 +25,7 @@ if(isset($_POST['placeOrder'])){
     $errors = validateName($first_name, $errors);
     $errors = validateName($surname, $errors);
     $errors = validateEmail($email, $errors);
-    print_r($errors);
+    printErrors($errors);
     //back button
     echo '<button onclick="history.back()">Go Back</button>';
 
@@ -121,4 +121,10 @@ function validateEmail($email, $errors){
     return $errors;
 }
 
+//print errors
+function printErrors($errors){
+    foreach($errors as $error){
+        echo $error . "<br>";
+    }
+}
 ?>

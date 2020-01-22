@@ -26,9 +26,8 @@ if(isset($_POST['login'])){
     }else{
         array_push($errors, "Incorrect credentials.");
     }
-    print_r($errors);
+    printErrors($errors);
 }
-
 
 function validateUsername($username, $errors){
     if(empty($username)){
@@ -49,6 +48,13 @@ function trimInputs($input){
     $input = stripslashes($input);
     $input = htmlspecialchars($input);
     return $input;
+}
+
+//print errors
+function printErrors($errors){
+    foreach($errors as $error){
+        echo $error . "<br>";
+    }
 }
 ?>
 

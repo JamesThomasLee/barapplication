@@ -30,10 +30,9 @@ if(isset($_POST["editItem"])){
     }
     $errors = validateCost($cost, $errors);
     if(errors != null){
-        print_r($errors);
+        printErrors($errors);
         //back button
         echo '<button onclick="history.back()">Go Back</button>';
-
     }
 
     //if there are no validation errors, proceed with item update.
@@ -117,6 +116,13 @@ function validateCost($cost, $errors){
         }
     }
     return $errors;
+}
+
+//print errors
+function printErrors($errors){
+    foreach($errors as $error){
+        echo $error . "<br>";
+    }
 }
 
 ?>

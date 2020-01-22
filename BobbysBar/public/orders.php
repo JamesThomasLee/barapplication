@@ -87,8 +87,7 @@ $errors = array();
             }
         }
 
-        print_r($errors);
-
+        printErrors($errors);
     }
 
     //strip inputs
@@ -112,6 +111,13 @@ $errors = array();
         }
         return $errors;
     }
+
+    //print errors
+    function printErrors($errors){
+    foreach($errors as $error){
+        echo $error . "<br>";
+    }
+}
 ?>
 
 
