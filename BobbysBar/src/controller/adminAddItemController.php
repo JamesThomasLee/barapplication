@@ -18,14 +18,22 @@ if(isset($_POST["addItem"])) {
     $percentage = trimInputs($_POST['percentage']);
     $cost = trimInputs($_POST['cost']);
 
-    validateProductName($product_name, $errors);
-    validateProductSupplier($product_supplier, $errors);
+    //carry out validation checks
+    $errors = validateProductName($product_name, $errors);
+    $errors = validateProductSupplier($product_supplier, $errors);
     //if category has a percentage (not bar snacks)
     if($category_id != 10){
-        validatePercentage($percentage, $errors);
+        $errors = validatePercentage($percentage, $errors);
     }
-    validateCost($cost, $errors);
+    $errors = validateCost($cost, $errors);
+    if(errors != null){
+        print_r($errors);
+        //back button
+        echo '<button onclick="history.back()">Go Back</button>';
 
+    }
+
+    //if checks are passed then proceed
     if($errors == null){
         //if category is bar snacks then a seperate function is required as percentage is not passed as a parameter
         if($category_id == 10){
@@ -39,7 +47,6 @@ if(isset($_POST["addItem"])) {
         }
         header("Location: ../../public/admin_pages/adminMenu.php");
     }
-
 }
 
 if(isset($_POST['cancel'])){
@@ -78,35 +85,27 @@ function validateProductSupplier($productSupplier, $errors){
     return $errors;
 }
 
-//check product percentage for empty field, non numeric, or too long
+//check product percentage for empty field, or non numeric
 function validatePercentage($percentage, $errors){
     if(empty($percentage)){
         array_push($errors, "*Please enter a percentage");
     }else{
-        if(strlen($percentage > 5)){
-            array_push($errors, "*Percentage is too long");
-        }else{
-            if(!is_numeric($percentage)){
-                array_push($errors, "*Please enter a valid percentage");
-            }
+        if(!is_numeric($percentage)){
+            array_push($errors, "*Please enter a valid percentage");
         }
-
     }
+    return $errors;
 }
 
-//check product cost for empty field, non numeric, or too long
+//check product cost for empty field, or non numeric
 function validateCost($cost, $errors){
-    if(empty($percentage)){
+    if(empty($cost)){
         array_push($errors, "*Please enter a cost");
     }else{
-        if(strlen($percentage > 5)){
-            array_push($errors, "*Cost is too long");
-        }else{
-            if(!is_numeric($percentage)){
-                array_push($errors, "*Please enter a valid cost");
-            }
+        if(!is_numeric($cost)){
+            array_push($errors, "*Please enter a valid cost");
         }
-
     }
+    return $errors;
 }
 ?>
