@@ -1,18 +1,18 @@
 # barapplication - Bobby's Bar
 A simple bar ordering system designed for my ISAD251 project.
 
-<b>Application fact sheet:</b>
+<b>Application fact sheet:</b><br>
 My application provides customers of Bobby's bar with an online resource enabling them to view a menu and place an order. The application also provides the bar administrators with an online resource
 to remove items from sale, add new items to their menu and edit current items. They can also view all of the orders and their details placed via the web application.
 The application uses classes to manipulate data stored in a mysql database.
 
-<b>Application features:</b>
-*Users can add items to their basket
-*Users can place an order and set their table number for delivery
-*Users can view and cancel their order
-*Administrators can remove and relist items on the menu
-*Administrators can add new items to the menu
-*Administrators can edit items on the menu
+<b>Application features:</b><br>
+*Users can add items to their basket<br>
+*Users can place an order and set their table number for delivery<br>
+*Users can view and cancel their order<br>
+*Administrators can remove and relist items on the menu<br>
+*Administrators can add new items to the menu<br>
+*Administrators can edit items on the menu<br>
 *Administrators can view all orders placed on the system
 
 ### Youtube
