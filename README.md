@@ -64,8 +64,9 @@ This is the table displayed to an admin when they wish to view all orders. Besid
 ![index](/screenshots/adminvieworder.PNG)
 
 Screenshot 10:
-Evidence of my application operating in a browser other than Google Chrome. 
+Evidence of my application operating in multiple browsers - firefox and chrome.
 ![index](/screenshots/firefox.PNG)
+![index](/screenshots/chrome.PNG)
 
 
 ### Application Testing
