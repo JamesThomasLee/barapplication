@@ -188,46 +188,6 @@ class DBContext
         return $menu_items;
     }
 
-    public function Order()
-    {
-        $sql = "";
-
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $orders = [];
-
-        if($resultSet){
-            foreach($resultSet as $row)
-            {
-                $order = new Order($row['order_id'], $row['customer_id'], $row['table_number']);
-                $orders[] = $order;
-            }
-        }
-        return $orders;
-    }
-
-    public function Order_details()
-    {
-        $sql = "";
-
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $order_details = [];
-
-        if($resultSet){
-            foreach($resultSet as $row)
-            {
-                $order_detail = new Order_details($row['order_id'], $row['product_id'], $row['quantity']);
-                $order_details[] = $order_detail;
-            }
-        }
-        return $order_details;
-    }
-
     /*
      * Order retrieve calls an sql procedure. The order ID is passed into the function with is used by the procedure.
      * The procedure then returns data of the order such as order date/time, table number etc.
@@ -340,18 +300,17 @@ class DBContext
      * This function is used to call a view that returns the order id of the last inserted order.
      * This is used by the order confirmation page to display the details of customers order upon completion.
      */
-    public function getLastOrderId(){
-        $sql = "SELECT * FROM `lastorderid`";
-
+    public function getLastOrderId($time){
+        $sql = "CALL getLastOrder(:time)";
         $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':time', $time, PDO::PARAM_STR);
+
         $statement->execute();
         $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach($resultSet as $row)
-        {
-            $result = $row['LAST_INSERT_ID()'];
+        $result = 0;
+        foreach($resultSet as $order => $id){
+            $result = $id;
         }
-
         return $result;
     }
 

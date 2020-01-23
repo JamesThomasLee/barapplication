@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../../assets/css/myStylesheet.css">
 <?php
 include_once '../model/DBContext.php';
 include_once '../model/Customer.php';
@@ -15,19 +16,22 @@ $errors = array();
  * inserted with the new customer id.
  */
 
-if(isset($_POST['placeOrder'])){
+if(isset($_POST['placeOrder'])) {
     //collect customer data
     $first_name = trimInputs($_POST['first_name']);
     $surname = trimInputs($_POST['surname']);
     $email = trimInputs($_POST['email']);
+    if(isset($_POST['terms'])){
+        $terms = "accepted";
+    }
 
     //validate user inputs
     $errors = validateName($first_name, $errors);
     $errors = validateName($surname, $errors);
     $errors = validateEmail($email, $errors);
-    printErrors($errors);
-    //back button
-    echo '<button onclick="history.back()">Go Back</button>';
+    if(!isset($terms)){
+        array_push($errors, "*Please accept our terms and conditions");
+    }
 
     if($errors == null){
         //collect order data
@@ -50,7 +54,8 @@ if(isset($_POST['placeOrder'])){
             $customer_id = implode($result);
             $db->insertOrder($customer_id, $table_number, $order_time);
             //getOrderId for orderdetails table
-            $order_id = $db->getLastOrderId();
+            $order_id = $db->getLastOrderId($order_time);
+            $order_id = implode($order_id);
             //insert basket items to order details table
             $totalCost = 0;
             foreach ($_SESSION['basket'] as $item){
@@ -74,7 +79,8 @@ if(isset($_POST['placeOrder'])){
             $order = new Order(0, $customer_id, $table_number, $order_time);
             $db->insertOrder($customer_id, $table_number, $order_time);
             //getOrderId for orderdetails table
-            $order_id = $db->getLastOrderId();
+            $order_id = $db->getLastOrderId($order_time);
+            $order_id = implode($order_id);
             //insert basket items to order details table
             $totalCost = 0;
             foreach ($_SESSION['basket'] as $item){
@@ -87,33 +93,40 @@ if(isset($_POST['placeOrder'])){
         }
         header("Location: ../../public/orderConfirm.php");
     }
+    else{
+        printErrors($errors);
+    }
 }
 
-function trimInputs($input){
+
+function trimInputs($input)
+{
     $input = trim($input);
     $input = stripslashes($input);
     $input = htmlspecialchars($input);
     return $input;
 }
 
-function validateName($name, $errors){
-    if(empty($name)){
+function validateName($name, $errors)
+{
+    if (empty($name)) {
         array_push($errors, "*Please enter both your first name and surname.");
-    }else{
-        if(strlen($name) > 29){
+    } else {
+        if (strlen($name) > 29) {
             array_push($errors, "Name too long");
         }
-        if(!ctype_alpha($name)) {
+        if (!ctype_alpha($name)) {
             array_push($errors, "*Please enter a valid name.");
         }
     }
     return $errors;
 }
 
-function validateEmail($email, $errors){
-    if(empty($email)){
+function validateEmail($email, $errors)
+{
+    if (empty($email)) {
         array_push($errors, "*Please enter a valid email address.");
-    }else {
+    } else {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             array_push($errors, "*Invalid email");
         }
@@ -122,9 +135,16 @@ function validateEmail($email, $errors){
 }
 
 //print errors
-function printErrors($errors){
-    foreach($errors as $error){
-        echo $error . "<br>";
+    function printErrors($errors)
+    {
+        echo "<div class = errors-container>";
+        foreach ($errors as $error) {
+            echo $error . "<br>";
+        }
+        //back Button
+        echo "<br>";
+        echo '<button onclick="history.back()">Go Back</button>';
+
+        echo "</div>";
     }
-}
 ?>

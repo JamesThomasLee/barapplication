@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="../../assets/css/myStylesheet.css">
+<html>
 <?php
 session_start();
 include_once '../model/Menu_item.php';
@@ -29,14 +32,9 @@ if(isset($_POST["editItem"])){
         $errors = validatePercentage($percentage, $errors);
     }
     $errors = validateCost($cost, $errors);
-    if(errors != null){
+    if($errors != null){
         printErrors($errors);
-        //back button
-        echo '<button onclick="history.back()">Go Back</button>';
-    }
-
-    //if there are no validation errors, proceed with item update.
-    if($errors == null){
+    }else{
         $db = new DBContext();
         //seperate update function for a bar snack due to data differing from a drink.
         if($category == "Bar Snacks"){
@@ -120,9 +118,13 @@ function validateCost($cost, $errors){
 
 //print errors
 function printErrors($errors){
+    echo "<div class = errors-container>";
     foreach($errors as $error){
         echo $error . "<br>";
     }
+    //back Button
+    echo "<br>";
+    echo '<button onclick="window.history.go(-2)">Go Back</button>';
 }
 
 ?>

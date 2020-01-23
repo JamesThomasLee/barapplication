@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <?php
 include_once('header.php');
 include_once('../src/model/DBContext.php');
@@ -30,6 +31,15 @@ include_once('../src/model/basketView.php');
         $tableString .= '</tr>';
         echo "<div class='table-container'>";
         echo $tableString;
+
+        //column headers
+        echo '<tr>';
+        echo '<td><b>Drink</b></td>';
+        echo '<td><b>Category</b></td>';
+        echo '<td><b>Percentage</b></td>';
+        echo '<td><b>Price</b></td>';
+        echo '<td><b>Add to Basket</b></td>';
+        echo '</tr>';
 
         //for each drink returned in the array list create a row and populate it with data
         foreach ($drinkResults as $result){
@@ -76,6 +86,14 @@ include_once('../src/model/basketView.php');
         echo "<div class='table-container'>";
         echo $tableString;
 
+        //column headers
+        echo '<tr>';
+        echo '<td><b>Food</b></td>';
+        echo '<td><b>Category</b></td>';
+        echo '<td><b>Price</b></td>';
+        echo '<td><b>Add to Basket</b></td>';
+        echo '</tr>';
+
         //for each item returned as a snack, create a new table row.
         foreach ($snackResults as $result){
             $product_id = $result->getProductId();
@@ -93,7 +111,7 @@ include_once('../src/model/basketView.php');
             echo '<td>'. $product_name . '</td>';
             echo '<td>'. $category . '</td>';
             echo '<td>'. "£" . $cost . '</td>';
-            echo '<td>';
+            echo '<td id="table-button">';
             //buttom to add item to basket. Serialized item sent to basket controller.
             echo '<form action="../src/controller/basketController.php" method="post">';
             echo '<button type="submit" name="add_basket" value="' . $serialized . '">Add to Basket</button>';

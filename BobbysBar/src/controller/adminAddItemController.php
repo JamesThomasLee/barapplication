@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="../../assets/css/myStylesheet.css">
+<html>
+
 <?php
 include_once '../model/Menu_item.php';
 include_once '../model/DBContext.php';
@@ -26,14 +30,9 @@ if(isset($_POST["addItem"])) {
         $errors = validatePercentage($percentage, $errors);
     }
     $errors = validateCost($cost, $errors);
-    if(errors != null){
+    if($errors != null){
         printErrors($errors);
-        //back button
-        echo '<button onclick="history.back()">Go Back</button>';
-    }
-
-    //if checks are passed then proceed
-    if($errors == null){
+    }else{
         //if category is bar snacks then a seperate function is required as percentage is not passed as a parameter
         if($category_id == 10){
             $item = new MenuSnack_View(0, $product_name, $product_supplier, $category_id, $cost, "ONSALE");
@@ -49,7 +48,7 @@ if(isset($_POST["addItem"])) {
 }
 
 if(isset($_POST['cancel'])){
-    header("Location: ../../public/admin_pages/adminMenu.php");
+    header("Location: ../../public/admin_pages/adminControlPanel.php");
 }
 
 //strip inputs
@@ -110,8 +109,12 @@ function validateCost($cost, $errors){
 
 //print errors
 function printErrors($errors){
+    echo "<div class = errors-container>";
     foreach($errors as $error){
         echo $error . "<br>";
     }
+    //back Button
+    echo "<br>";
+    echo '<button onclick="history.back()">Go Back</button>';
 }
 ?>

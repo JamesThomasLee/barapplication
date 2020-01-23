@@ -13,7 +13,7 @@ $_SESSION["Authorised"] = false;
 <meta charset="UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../assets/css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/myStylesheet.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -22,6 +22,7 @@ $_SESSION["Authorised"] = false;
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+<link rel="stylesheet" type="text/css" href="../assets/css/stylesheet.css">
 
 
     <div class="hero-image">

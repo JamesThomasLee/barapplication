@@ -20,6 +20,11 @@
         ?>
     </select>
     <br>
-    <input type="submit" name="placeOrder" value="Place Order">
     <br>
+    <p>By ticking this box you are confirming you have read and agree to our terms and conditions
+        which can be found here.
+    <input type="checkbox" name="terms" value="accepted">
+    <br>
+        <br>
+    <input type="submit" id=orderButton name="placeOrder" value="Place Order">
 </form>

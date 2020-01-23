@@ -4,6 +4,7 @@
 
 <div class="w3-container" id="about">
     <div class="w3-content" style="max-width: 700px">
+        <h5>About Us</h5>
         <p>
             Bobby's bar, opened in 2019 is located in the heart of Plymouth providing it's customers with the highest quality alcoholic
             and non alcoholic beverages along with tasty hot and cold bar snacks.
@@ -15,7 +16,8 @@
             have them delivered to your table!
         </p>
 
-        <h5>Location:</h5>
+
+        <h5>Location</h5>
         <div id='map' style='width: 700px; height: 600px;'></div>
         <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoiamFtaWVsZWU5NiIsImEiOiJjam9neXhtMHgwaWw5M3Jyd2gycW9pbDQwIn0.wqFvjrONBW2pIXTVHInd_A';

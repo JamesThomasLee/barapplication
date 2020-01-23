@@ -17,12 +17,16 @@ $results = $db->adminOrders();
 if($results){
     $tableString = '<table border="1">';
     $tableString .= '<tr>';
-    $tableString .= '<th>Order ID</th>';
-    $tableString .= '<th>Order Date/Time</th>';
-    $tableString .= '<th>Customer ID</th>';
-    $tableString .= '<th>Table Number</th>';
-
+    $tableString .= '<th colspan="5">Orders</th>';
     $tableString .= '</tr>';
+    $tableString .= '<tr>';
+    $tableString .= '<td>Order ID</td>';
+    $tableString .= '<td>Order Date/Time</td>';
+    $tableString .= '<td>Customer ID</td>';
+    $tableString .= '<td>Table Number</td>';
+    $tableString .= '<td>View Order</td>';
+    $tableString .= '</tr>';
+    echo "<div class=admin-table-container>";
     echo $tableString;
 
     //for each order in the array list returned create a new table row.
@@ -46,4 +50,12 @@ if($results){
         echo '</tr>';
     }
     echo '</table>';
+    echo "</div>";
+}else{
+    echo "<div class=no-items>";
+    echo "<p>No orders.</p>";
+    echo "</div>";
 }
+
+include_once '../admin_pages/adminFooter.php';
+?>

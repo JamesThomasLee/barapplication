@@ -23,9 +23,21 @@ $drinkResults = $db->adminMenuDrink_View();
 if ($drinkResults) {
     $tableString = '<table border="1px solid black">';
     $tableString .= '<tr>';
-    $tableString .= '<th> Drinks</th>';
+    $tableString .= '<th colspan="7">Drinks</th>';
     $tableString .= '</tr>';
+    echo "<div class='admin-table-container'>";
     echo $tableString;
+
+    //column headers
+    echo '<tr>';
+    echo '<td><b>Snack</b></td>';
+    echo '<td><b>Category</b></td>';
+    echo '<td><b>Percentage</b></td>';
+    echo '<td><b>Price</b></td>';
+    echo '<td><b>Status</b></td>';
+    echo '<td><b>Edit Item</b></td>';
+    echo '<td><b>Change Status</b></td>';
+    echo '</tr>';
 
     //foreach item in retuned array list, get product info and display it in a table.
     foreach ($drinkResults as $result) {
@@ -44,7 +56,7 @@ if ($drinkResults) {
         echo '<td>' . $sale_status . '</td>';
         echo '<td>';
         //a button is used to pass a particular product id for the item to the edit item view.
-        echo '<form action="../../src/view/editItem.php" method="post">';
+        echo '<form action="../admin_pages/adminEditItem.php" method="post">';
         echo '<button type="submit" name="edit_item" value="' . $product_id . '">Edit Item</button>';
         echo '</form>';
         echo '</td>';
@@ -57,6 +69,7 @@ if ($drinkResults) {
         echo '</tr>';
     }
     echo '</table>';
+    echo '</div>';
 }
 
 echo "<br>";
@@ -67,9 +80,20 @@ $snackResults = $db->adminMenuSnack_View();
 if ($snackResults) {
     $tableString = '<table border="1px solid black">';
     $tableString .= '<tr>';
-    $tableString .= '<th> Bar Snacks</th>';
+    $tableString .= '<th colspan="6"> Bar Snacks</th>';
     $tableString .= '</tr>';
+    echo "<div class='admin-table-container'>";
     echo $tableString;
+
+    //column headers
+    echo '<tr>';
+    echo '<td><b>Snack</b></td>';
+    echo '<td><b>Category</b></td>';
+    echo '<td><b>Price</b></td>';
+    echo '<td><b>Status</b></td>';
+    echo '<td><b>Edit Item</b></td>';
+    echo '<td><b>Change Status</b></td>';
+    echo '</tr>';
 
     //create a row for each object returned in the array list
     foreach ($snackResults as $result) {
@@ -86,7 +110,7 @@ if ($snackResults) {
         echo '<td>' . $sale_status . '</td>';
         echo '<td>';
         //button to input product id for a particular product to the edit item view
-        echo '<form action="../../src/view/editItem.php" method="post">';
+        echo '<form action="../admin_pages/adminEditItem.php" method="post">';
         echo '<button type="submit" name="edit_item" value="' . $product_id . '">Edit Item</button>';
         echo '</form>';
         echo '</td>';
@@ -99,4 +123,7 @@ if ($snackResults) {
         echo '</tr>';
     }
     echo '</table>';
+    echo '</div>';
 }
+include_once '../admin_pages/adminFooter.php';
+?>

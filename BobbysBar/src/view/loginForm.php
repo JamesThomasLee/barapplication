@@ -1,4 +1,4 @@
-<div class="container" id="login">
+<div class="login-form" id="login">
     <form method="post" id="lookup">
         <p>Please enter your credentials: </p>
         <label for="username">Username: </label>

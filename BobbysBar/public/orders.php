@@ -49,9 +49,11 @@ $errors = array();
                     //total cost calculation
                     $totalcost = $totalcost + ($cost * $quantity);
                 }
+                echo "<div class=order-details>";
                 echo "<b>Order ID: </b>" . $id . "<br>";
                 echo "<b>Table Number: </b>" . $tablenum . "<br>";
                 echo "<b>Total Cost: </b>" . "£" . $totalcost . "<br>";
+                echo "<br>";
 
                 //create a table to display items in order
                 $tableString = '<table border="1">';
@@ -75,11 +77,13 @@ $errors = array();
                     echo '</tr>';
                 }
                 echo '</table>';
+                echo '<br>';
 
                 //button for a user to cancel their order - calls deleteOrder controller
                 echo "<form action='../src/controller/deleteOrder.php' method='post'>";
                 echo "<button type='submit' name='deleteOrder'>Cancel Order</button>";
                 echo "</form>";
+                echo "</div>";
 
             }else{
                 //message displayed if an order is not found
@@ -87,7 +91,9 @@ $errors = array();
             }
         }
 
-        printErrors($errors);
+        if($errors != null){
+            printErrors($errors);
+        }
     }
 
     //strip inputs
@@ -114,9 +120,12 @@ $errors = array();
 
     //print errors
     function printErrors($errors){
-    foreach($errors as $error){
-        echo $error . "<br>";
-    }
+        echo "<div class = errors-container>";
+            foreach($errors as $error){
+                echo $error . "<br>";
+            }
+        echo "</div>";
+
 }
 ?>
 

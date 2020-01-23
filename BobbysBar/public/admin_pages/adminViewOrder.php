@@ -27,6 +27,7 @@ if(isset($_POST['view_order'])){
         //total cost calculation
         $totalcost = $totalcost + ($cost * $quantity);
     }
+    echo "<div class=order-details>";
     echo "<b>Order ID: </b>" . $order_id . "<br>";
     echo "<b>Table Number: </b>" . $tablenum . "<br>";
     echo "<b>Total Cost: </b>" . "£" . $totalcost . "<br>";
@@ -54,7 +55,11 @@ if(isset($_POST['view_order'])){
     }
     echo '</table>';
 
-    //back button
-    echo '<button onclick="history.back()">Go Back</button>';
 
+    //back button
+    echo "<br>";
+    echo '<button onclick="history.back()">Go Back</button>';
+    echo "</div>";
 }
+include_once '../admin_pages/adminFooter.php';
+?>

@@ -52,9 +52,11 @@ function trimInputs($input){
 
 //print errors
 function printErrors($errors){
+    echo "<div class = errors-container>";
     foreach($errors as $error){
         echo $error . "<br>";
     }
+    echo "</div>";
 }
 ?>
 
