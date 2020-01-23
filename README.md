@@ -15,6 +15,11 @@ The application uses classes to manipulate data stored in a mysql database.
 * Administrators can edit items on the menu<br>
 * Administrators can view all orders placed on the system
 
+### Using the Application
+Login details for administrators are hard coded into the application and are as follows:<br>
+Username: Username<br>
+Password: Password
+
 ### Youtube
 A video giving a brief overview of my application can be found [here](https://youtu.be/xWK3JqG9Zuk)
 
