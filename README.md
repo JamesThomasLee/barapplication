@@ -55,6 +55,46 @@ Evidence of my application operating in a browser other than Google Chrome.
 
 
 ### Application Testing
-|Table|Table|Table|
-|---|---|---|
-|test|test|test|
+##### User Testing
+|Test|Outcome|
+|---|---|
+|Add 5 items to basket.|5 items were added to the basket successfully.|
+|Remove 2 items at random.|2 items were removed from the basket.|
+|Place an order.|The remaining 3 items were used to place an order. The order was placed successfully and an order confirmation was displayed.|
+|Search for an order.|The order ID was used from the previously placed order to search for the order. The order was found and all details were displayed correctly.|
+|Cancel an order.|The order was cancelled successfully.|
+
+##### Administrator Testing
+|Test|Outcome|
+|---|---|
+|Log in with administrator credentials.|The login details allowed me to be authenticated and enter the administrator section of the website.|
+|Add an item.|An item was successfully added to the menu.|
+|Edit the item just added.|All fields of the item were updated successfully.|
+|Change the status of the item.|The item was taken off sale and then relisted on sale successfully.|
+|View all orders.|All orders were displayed in a table successfully.|
+|View a specific order.|The order was viewed successfully and a table of all the products in a table was displayed.|
+|Log out.|User logged out successfully.|
+
+##### Security Testing
+|Test|Outcome|
+|---|---|
+|Try to access all administrator pages via URL.|Every page redirects the user back to the index page. No administrator page can be accessed without logging in first.|
+|Input invalid customer details.|Error messages were displayed on screen.|
+|Input customer details longer than 30 characters.|Error messages were displayed on screen.|
+|Input incorrect details into the login form.|Error messages were displayed on screen.|
+|Incorrect details into both add and edit item forms.|Error messages were displayed on screen. Inputted values were not saved and the form had to be re-completed.|
+
+##### Web Accessibility Initiative
+|Test|Outcome|
+|---|---|
+|Text alternatives for non-text content.|All buttons on the site feature text content. This could be changed and was on my to do list however it has not been completed before the project deadline.|
+|Captions and other alternatives for multimedia|There is no multimedia on the site to provide alternatives for.|
+|Content can be presented in different ways|Content cannot be presented in different ways. I could improve this by providing a button to change the css style to provide content in a different colour scheme.||
+|Content is easy to see and hear|Colour scheme is designed to be easily visible.|
+|Users have enough time to read and use the content|There is no dynamic pages in the site so no time limit on any content.|
+|Content does not cause seizures or physical reactions.|No moving content on the site.|
+|Users can easily navigate and determine where they are.|The website is very easy to navigate due to an always available navigation bar and clear headings.|
+|Text is readable and understandable.|Colour scheme and font is easily readable.|
+|Content appears and operates in predictable ways.|Website follows a predictable order structure. The typical structure that most online webstores follow.|
+|Users are helped to avoid and correct mistakes.|Server side security prevents any false information from being input and provides the user with a prompt when incorrect information is input. Another
+confirmation page could be provided to allow a customer to double check their order before placing it.|
