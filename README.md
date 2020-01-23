@@ -7,13 +7,13 @@ to remove items from sale, add new items to their menu and edit current items. T
 The application uses classes to manipulate data stored in a mysql database.
 
 <b>Application features:</b><br>
-*Users can add items to their basket<br>
-*Users can place an order and set their table number for delivery<br>
-*Users can view and cancel their order<br>
-*Administrators can remove and relist items on the menu<br>
-*Administrators can add new items to the menu<br>
-*Administrators can edit items on the menu<br>
-*Administrators can view all orders placed on the system
+* Users can add items to their basket<br>
+* Users can place an order and set their table number for delivery<br>
+* Users can view and cancel their order<br>
+* Administrators can remove and relist items on the menu<br>
+* Administrators can add new items to the menu<br>
+* Administrators can edit items on the menu<br>
+* Administrators can view all orders placed on the system
 
 ### Youtube
 A video giving a brief overview of my application can be found [here](https://youtu.be/xWK3JqG9Zuk)
