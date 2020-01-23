@@ -2,9 +2,18 @@
 A simple bar ordering system designed for my ISAD251 project.
 
 <b>Application fact sheet:</b>
-My application provides a set of pages that allows a user to navigate a menu, add items to basket, and then place an order. The user can also search for their order with an order id. The user can cancel this order. When an order is cancelled it is moved to an archive table in the database.
-The administrator section of the website allows the admin to view and edit the menu (add, remove, edit items) and view orders.
-The website interacts with a database through the use of different classes. DBContext holds a series of functions to connect and interact with the database. This calls many views and procedures to manipulate data in the database.
+My application provides customers of Bobby's bar with an online resource enabling them to view a menu and place an order. The application also provides the bar administrators with an online resource
+to remove items from sale, add new items to their menu and edit current items. They can also view all of the orders and their details placed via the web application.
+The application uses classes to manipulate data stored in a mysql database.
+
+<b>Application features:</b>
+*Users can add items to their basket
+*Users can place an order and set their table number for delivery
+*Users can view and cancel their order
+*Administrators can remove and relist items on the menu
+*Administrators can add new items to the menu
+*Administrators can edit items on the menu
+*Administrators can view all orders placed on the system
 
 ### Youtube
 A video giving a brief overview of my application can be found [here](https://youtu.be/xWK3JqG9Zuk)
