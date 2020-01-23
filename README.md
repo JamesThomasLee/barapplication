@@ -6,6 +6,9 @@ My application provides a set of pages that allows a user to navigate a menu, ad
 The administrator section of the website allows the admin to view and edit the menu (add, remove, edit items) and view orders.
 The website interacts with a database through the use of different classes. DBContext holds a series of functions to connect and interact with the database. This calls many views and procedures to manipulate data in the database.
 
+### Youtube
+A video giving a brief overview of my application can be found [here](https://youtu.be/xWK3JqG9Zuk)
+
 ### Screenshots
 Screenshot 1:
 My index page. A basic overview of the bar and a map showing its location. Map API provided by MAPBOX.
@@ -49,3 +52,9 @@ This is the table displayed to an admin when they wish to view all orders. Besid
 Screenshot 10:
 Evidence of my application operating in a browser other than Google Chrome. 
 ![index](/screenshots/firefox.PNG)
+
+
+### Application Testing
+|Table|Table|Table|
+|---|---|---|
+|test|test|test|
