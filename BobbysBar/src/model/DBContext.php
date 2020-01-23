@@ -45,49 +45,6 @@ class DBContext
         return $resultSet;
     }
 
-    public function Customer()
-    {
-        $sql = "";
-
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $customers = [];
-
-        if($resultSet){
-            foreach($resultSet as $row)
-            {
-             $customer = new Customer($row['customer_id'], $row['first_name'], $row['surname'], $row['email']);
-             $customers[] = $customer;
-            }
-        }
-        return $customers;
-    }
-
-    public function Menu_item()
-    {
-        $sql = "SELECT * FROM `menu_coursework`";
-
-        $statement = $this->connection->prepare($sql);
-        $statement->execute();
-        $resultSet = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $menu_items = [];
-
-        // print_r($resultSet);
-
-        if($resultSet){
-            foreach($resultSet as $row)
-            {
-                $menu_item = new Menu_item($row['product_id'], $row['product_name'], $row['product_supplier'],
-                                            $row['category'], $row['percentage'], $row['cost']);
-                $menu_items[] = $menu_item;
-            }
-        }
-        return $menu_items;
-    }
-
     /*
     Menu drink view is used by the menu page to call a view that displays only the drinks in the menu.
     This calls only the drinks as snacks do not have a field in the percentage category causing an error when

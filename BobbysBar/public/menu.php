@@ -5,7 +5,6 @@
 include_once('header.php');
 include_once('../src/model/DBContext.php');
 include_once('../src/model/MenuDrink_View.php');
-include_once('../src/model/ItemInBasket.php');
 include_once('../src/model/basketView.php');
 /*
  * On this page drink view function and snack view functions are called to return array lists of menu items.
@@ -52,7 +51,7 @@ include_once('../src/model/basketView.php');
 
             //this is used to serialize an item so it can be added to the basket session array list. If I did not
             //serialize the item it was losing data.
-            $item = new ItemInBasket($product_id, $product_name, $category, $cost, $quantity);
+            $item = new basketView($product_id, $product_name, $category, $cost, $quantity);
             $serialized = base64_encode(serialize($item));
 
             echo '<tr>';
