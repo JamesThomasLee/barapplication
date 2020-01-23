@@ -45,3 +45,7 @@ Screenshot 9:
 This is the table displayed to an admin when they wish to view all orders. Beside each order is a button that displays a view detailing the order details and all of the products in the order.
 ![index](/screenshots/adminorders.PNG)
 ![index](/screenshots/adminvieworder.PNG)
+
+Screenshot 10:
+Evidence of my application operating in a browser other than Google Chrome. 
+![index](/screenshots/firefox.PNG)
