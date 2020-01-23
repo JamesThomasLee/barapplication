@@ -96,5 +96,4 @@ Evidence of my application operating in a browser other than Google Chrome.
 |Users can easily navigate and determine where they are.|The website is very easy to navigate due to an always available navigation bar and clear headings.|
 |Text is readable and understandable.|Colour scheme and font is easily readable.|
 |Content appears and operates in predictable ways.|Website follows a predictable order structure. The typical structure that most online webstores follow.|
-|Users are helped to avoid and correct mistakes.|Server side security prevents any false information from being input and provides the user with a prompt when incorrect information is input. Another
-confirmation page could be provided to allow a customer to double check their order before placing it.|
+|Users are helped to avoid and correct mistakes.|Server side security prevents any false information from being input and provides the user with a prompt when incorrect information is input. Another confirmation page could be provided to allow a customer to double check their order before placing it.|
